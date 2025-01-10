@@ -2,17 +2,17 @@ from collections import defaultdict
 
 
 class MeteoData:
-    def __init__(self, initial_temperateures: dict[str, list[int]]):
-        self.temperatures = defaultdict(list, initial_temperateures)
+    def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:
+        self.temperatures = defaultdict(list, initial_temperatures)
 
-    def get_temperature(self, day):
+    def get_temperature(self, day: str) -> int:
         """
         This function will return the temperature for a given day
         it will return an empty list if the day isn't recorded
         """
         return self.temperatures.get(day, [])
 
-    def add_temperature(self, day, temperature):
+    def add_temperature(self, day: str, temperature: int) -> None:
         """
         Add a temperature to a given day
         """

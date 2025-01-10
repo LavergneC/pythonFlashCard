@@ -1,10 +1,6 @@
 def count_unique(s: str) -> int:
     """
     Count number of unique charaters in the given string
-    >>> count_unique("aabb")
-    2
-    >>> count_unique("abcdef")
-    6
     """
     # This works fine but it's super slow
     # seen = []
@@ -23,5 +19,10 @@ def count_unique(s: str) -> int:
     # Does the same with SET comprehension
     # return len({c for c in s})
 
-    # Does the same using set(List) constructor, woks with any iterable
+    # Does the same using set(List) constructor, works with any iterable
     return len(set(s))
+
+
+def test_count_unique():
+    assert count_unique("aabb") == 2
+    assert count_unique("abcdef") == 6

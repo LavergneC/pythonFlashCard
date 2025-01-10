@@ -5,6 +5,8 @@ def all_possible_trip(cities: list[str], trip_duration: int = -1) -> list[tuple]
     """
     Help the user to plan a trip. You get a list of cities he'd like to visit,
     and a number of cities he can visit.
+
+    When parameter trip_duration is not given (=-1) all cities will be visited
     Return a list of all possible trips
     """
     if trip_duration == -1:

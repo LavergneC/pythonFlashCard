@@ -3,7 +3,7 @@ import itertools as it
 
 def build_strips_pattern(colors: list[str], length=int) -> list[str]:
     """
-    Given a list of colors eq: ['red, 'blue']... Build a pattern by looping
+    Given a list of colors eq: ['red, 'blue'...] Build a pattern by looping
     on the colors
     """
     pattern = []
