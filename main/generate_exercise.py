@@ -12,7 +12,7 @@ from main.constants import (
 
 
 class PythonFlashCards:
-    def generate_exercise(self):
+    def generate_exercise(self) -> None:
         exercise_file_path = self._get_random_exercise_file_name(RESSOUCES_PATH)
 
         shutil.copyfile(exercise_file_path, "solution.py")
@@ -53,7 +53,7 @@ class PythonFlashCards:
             if KEEP_LINE_TAG in line:
                 output += line.split(f"  {KEEP_LINE_TAG}")[0] + "\n"
             elif line == "":
-                return output + "\n\n"
+                return output + ("\n\n" if len(output) else "")
 
         raise Exception("End of import not found")
 

@@ -1,4 +1,9 @@
-TEST_RESSOURCES_PATH = "tests/test_resources"
+class TEST_RESSOUCE:
+    PATH = "tests/test_resources"
+    VERY_SIMPLE = PATH + "/" + "very_simple_exercise.py"
+    NO_IMPORT = PATH + "/" + "no_import_left.py"
+
+
 TEST_MAIN_FUNCTION_DEFINITION = "def str_to_sentences(long_str: str) -> list[str]:"
 TEST_MAIN_FUNCTION_DOCTSTRING = (
     '    """\n    split the given string on punctuation symbols\n    """\n'
@@ -17,3 +22,4 @@ def test_str_to_sentences():
         " So do This ",
         " this too",
     ]"""
+TEST_NO_IMPORT_RESSOURCE_DEF = "def dishes_from_ingredients(ingredients: list[str], meal_size: int) -> list[tuple]:"

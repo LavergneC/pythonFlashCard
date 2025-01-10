@@ -1,30 +1,24 @@
-import pathlib
 import random
 from os import listdir
 from os.path import join
 from unittest.mock import MagicMock, patch
 
-from main.constants import KEEP_LINE_TAG, TEXT_TESTS_PART
+from main.constants import KEEP_LINE_TAG, TEXT_TESTS_PART, TEXT_USER_CODE
 from main.generate_exercise import PythonFlashCards
 from tests.constants_test import (
     TEST_MAIN_FUNCTION_DEFINITION,
     TEST_MAIN_FUNCTION_DOCTSTRING,
-    TEST_RESSOURCES_PATH,
+    TEST_NO_IMPORT_RESSOURCE_DEF,
+    TEST_RESSOUCE,
     TEST_RESSOURCES_TEST,
 )
 
 
 @patch(
     "main.generate_exercise.PythonFlashCards._get_random_exercise_file_name",
-    return_value="tests/test_resources/ressource_test1.py",
+    return_value=TEST_RESSOUCE.VERY_SIMPLE,
 )
 def test_generate_very_simple_exercise(mock_method):
-    if "solution.py" in listdir("./"):
-        pathlib.Path.unlink("solution.py")  # Remove file
-
-    if "exercise.py" in listdir("./"):
-        pathlib.Path.unlink("exercise.py")  # Remove file
-
     # The user launch the application #TODO more real
     pfc = PythonFlashCards()
     pfc.generate_exercise()
@@ -35,7 +29,7 @@ def test_generate_very_simple_exercise(mock_method):
     # It contains a full exercise solution
     with (
         open("solution.py") as solution_file,
-        open("tests/test_resources/ressource_test1.py") as source_file,
+        open(TEST_RESSOUCE.VERY_SIMPLE) as source_file,
     ):
         assert solution_file.read() == source_file.read()
 
@@ -62,23 +56,32 @@ def test_generate_very_simple_exercise(mock_method):
     #   - tests were kept
     assert TEST_RESSOURCES_TEST in exercise_content
     #   - Some context texts were added at several places
-    assert TEXT_TESTS_PART in exercise_content
-    assert TEXT_TESTS_PART in exercise_content
+    assert ('"""\n' + TEXT_USER_CODE) in exercise_content
+    assert (TEXT_TESTS_PART + "def test_") in exercise_content
 
 
 def test_get_random_exercise_file_name():
     random.choice = MagicMock("choise")
 
     pfc = PythonFlashCards()
-    pfc._get_random_exercise_file_name(TEST_RESSOURCES_PATH)
+    pfc._get_random_exercise_file_name(TEST_RESSOUCE.PATH)
 
     random.choice.assert_called_once_with(
         [
-            join(TEST_RESSOURCES_PATH, "ressource_test3.py"),
-            join(TEST_RESSOURCES_PATH, "ressource_test2.py"),
-            join(TEST_RESSOURCES_PATH, "ressource_test1.py"),
+            TEST_RESSOUCE.VERY_SIMPLE,
+            TEST_RESSOUCE.NO_IMPORT,
         ]
     )
 
 
-# TODO: test if exercise.py and/or solution.py already exists
+@patch(
+    "main.generate_exercise.PythonFlashCards._get_random_exercise_file_name",
+    return_value=TEST_RESSOUCE.NO_IMPORT,
+)
+def test_ressource_with_no_import_kept(mock_method):
+    pfc = PythonFlashCards()
+    pfc.generate_exercise()
+
+    with open("exercise.py") as exercise_file:
+        first_line = exercise_file.read().split("\n")[0]
+        assert first_line == TEST_NO_IMPORT_RESSOURCE_DEF
