@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 from main.constants import KEEP_LINE_TAG, TEXT_TESTS_PART, TEXT_USER_CODE
 from main.generate_exercise import PythonFlashCards
 from tests.constants_test import (
+    TEST_GET_RANDOM_EXERCISE,
     TEST_MAIN_FUNCTION_DEFINITION,
     TEST_MAIN_FUNCTION_DOCTSTRING,
     TEST_NO_IMPORT_RESSOURCE_DEF,
@@ -64,13 +65,10 @@ def test_get_random_exercise_file_name():
     random.choice = MagicMock("choise")
 
     pfc = PythonFlashCards()
-    pfc._get_random_exercise_file_name(TEST_RESSOUCE.PATH)
+    pfc._get_random_exercise_file_name(TEST_GET_RANDOM_EXERCISE.PATH)
 
     random.choice.assert_called_once_with(
-        [
-            TEST_RESSOUCE.VERY_SIMPLE,
-            TEST_RESSOUCE.NO_IMPORT,
-        ]
+        [TEST_GET_RANDOM_EXERCISE.RESSOURCE_2, TEST_GET_RANDOM_EXERCISE.RESSOURCE_1]
     )
 
 
