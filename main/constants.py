@@ -10,4 +10,4 @@ TEXT_USER_CODE = """\
 
 KEEP_LINE_TAG = "# fcPython:keep line"
 
-RESSOUCES_PATH = "./resources"
+RESSOUCES_PATH = "main/resources"
