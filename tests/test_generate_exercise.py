@@ -5,13 +5,13 @@ from unittest.mock import MagicMock, patch
 from main.generate_exercise import PythonFlashCards
 from tests.constants_test import (
     TEST_GET_RANDOM_EXERCISE,
-    TEST_RESSOUCE,
+    TEST_RESSOUCES,
 )
 
 
 @patch(
     "main.generate_exercise.PythonFlashCards._get_random_exercise_file_name",
-    return_value=TEST_RESSOUCE.VERY_SIMPLE,
+    return_value=TEST_RESSOUCES.VERY_SIMPLE,
 )
 def test_generate_very_simple_exercise(mock_method):
     # The user launch the application #TODO more real
@@ -24,7 +24,7 @@ def test_generate_very_simple_exercise(mock_method):
     # It contains a full exercise solution
     with (
         open("solution.py") as solution_file,
-        open(TEST_RESSOUCE.VERY_SIMPLE) as source_file,
+        open(TEST_RESSOUCES.VERY_SIMPLE) as source_file,
     ):
         assert solution_file.read() == source_file.read()
 

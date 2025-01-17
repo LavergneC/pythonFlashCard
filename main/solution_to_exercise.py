@@ -1,8 +1,6 @@
 from main.constants import (
     KEEP_LINE_TAG,
-    TEXT_CLASS_USER_CODE,
-    TEXT_TESTS_PART,
-    TEXT_USER_CODE,
+    STATIC_TEXTS,
 )
 
 
@@ -13,12 +11,12 @@ class SolutionToExercice:
 
         if "class" in solution_content:
             user_file_conttent += self._get_main_class_content(solution_content)
-            user_file_conttent += TEXT_CLASS_USER_CODE
+            user_file_conttent += STATIC_TEXTS.CLASS_USER_CODE
         else:
             user_file_conttent += self._get_main_function_decraration(solution_content)
-            user_file_conttent += TEXT_USER_CODE
+            user_file_conttent += STATIC_TEXTS.USER_CODE
         user_file_conttent += "\n\n"
-        user_file_conttent += TEXT_TESTS_PART
+        user_file_conttent += STATIC_TEXTS.TESTS_PART
         user_file_conttent += self._get_tests(solution_content)
 
         return user_file_conttent

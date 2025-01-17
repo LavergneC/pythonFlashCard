@@ -1,4 +1,4 @@
-class TEST_RESSOUCE:
+class TEST_RESSOUCES:
     PATH = "tests/test_resources"
     VERY_SIMPLE = PATH + "/" + "very_simple_exercise.py"
     NO_IMPORT = PATH + "/" + "no_import_left.py"
@@ -11,11 +11,12 @@ class TEST_GET_RANDOM_EXERCISE:
     RESSOURCE_2 = PATH + "/" + "ressource2.py"
 
 
-TEST_MAIN_FUNCTION_DEFINITION = "def str_to_sentences(long_str: str) -> list[str]:"
-TEST_MAIN_FUNCTION_DOCTSTRING = (
-    '    """\n    split the given string on punctuation symbols\n    """\n'
-)
-TEST_RESSOURCES_TEST = """
+class TEST_SIMPLE:
+    MAIN_FUNCTION_DEFINITION = "def str_to_sentences(long_str: str) -> list[str]:"
+    MAIN_FUNCTION_DOCTSTRING = (
+        '    """\n    split the given string on punctuation symbols\n    """\n'
+    )
+    TESTS = """
 def test_str_to_sentences():
     assert str_to_sentences("Hello word. How are you?") == [
         "Hello word",
@@ -29,10 +30,13 @@ def test_str_to_sentences():
         " So do This ",
         " this too",
     ]"""
+
+
 TEST_NO_IMPORT_RESSOURCE_DEF = "def dishes_from_ingredients(ingredients: list[str], meal_size: int) -> list[tuple]:"
 
 
-TEST_CLASS_RESSOURCES_TEST = """
+class TEST_CLASS_RESSOURCE:
+    TESTS = """
 def test_temperature_management_get_temperature():
     temperatures = {
         "07/01/2024": [0, 1, 2, 5],
@@ -61,9 +65,9 @@ def test_temperature_management_add_temperature():
     assert meteo_data.get_temperature("09/01/2024") == [1]
     random.random()"""
 
-TEST_CLASS_INIT_FUNCTION = (
-    "def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:"
-)
+    INIT_FUNCTION = (
+        "def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:"
+    )
 
-TEST_CLASS_FUNCTION_1 = "def get_temperature(self, day: str) -> int:"
-TEST_CLASS_FUNCTION_2 = "def add_temperature(self, day: str, temperature: int) -> None:"
+    FUNCTION_1 = "def get_temperature(self, day: str) -> int:"
+    FUNCTION_2 = "def add_temperature(self, day: str, temperature: int) -> None:"
