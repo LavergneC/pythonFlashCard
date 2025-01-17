@@ -1,3 +1,4 @@
+import random  # fcPython:keep line
 from collections import defaultdict
 
 
@@ -47,3 +48,4 @@ def test_temperature_management_add_temperature():
 
     assert meteo_data.get_temperature("07/01/2024") == [0, 1, 2, 5, 9]
     assert meteo_data.get_temperature("09/01/2024") == [1]
+    random.random()

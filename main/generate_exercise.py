@@ -6,6 +6,7 @@ from os.path import isfile, join
 from main.constants import (
     KEEP_LINE_TAG,
     RESSOUCES_PATH,
+    TEXT_CLASS_USER_CODE,
     TEXT_TESTS_PART,
     TEXT_USER_CODE,
 )
@@ -23,8 +24,13 @@ class PythonFlashCards:
 
         user_file_conttent = ""
         user_file_conttent += self._get_user_import(exercise)
-        user_file_conttent += self._get_main_function_decraration(exercise)
-        user_file_conttent += TEXT_USER_CODE
+
+        if "class" in exercise:
+            user_file_conttent += self._get_main_class_content(exercise)
+            user_file_conttent += TEXT_CLASS_USER_CODE
+        else:
+            user_file_conttent += self._get_main_function_decraration(exercise)
+            user_file_conttent += TEXT_USER_CODE
         user_file_conttent += "\n\n"
         user_file_conttent += TEXT_TESTS_PART
         user_file_conttent += self._get_tests(exercise)
@@ -84,6 +90,15 @@ class PythonFlashCards:
                 reading = True
 
             if reading:
+                output += line + "\n"
+
+        return output
+
+    def _get_main_class_content(self, file_content: str) -> str:
+        output = ""
+
+        for line in file_content.split("\n"):
+            if "class" in line or "    def " in line:
                 output += line + "\n"
 
         return output
