@@ -13,7 +13,7 @@ from tests.constants_test import (
     "main.generate_exercise.PythonFlashCards._get_random_exercise_file_name",
     return_value=TEST_RESSOUCES.VERY_SIMPLE,
 )
-def test_generate_very_simple_exercise(mock_method):
+def test_generate_exercise(_mock_method):
     # The user launch the application #TODO more real
     pfc = PythonFlashCards()
     pfc.generate_exercise()

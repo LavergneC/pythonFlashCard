@@ -1,5 +1,5 @@
 class TEST_RESSOUCES:
-    PATH = "tests/test_resources"
+    PATH = "tests/test_resources/test_solution_to_exercise"
     VERY_SIMPLE = PATH + "/" + "very_simple_exercise.py"
     NO_IMPORT = PATH + "/" + "no_import_left.py"
     CLASS = PATH + "/" + "class_ressource.py"
