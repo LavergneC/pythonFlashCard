@@ -19,3 +19,18 @@ def test_get_animals_sorted_by_older():
         {"type": "dog", "age": 8, "name": "Alfred"},
         {"type": "cat", "age": 3, "name": "Puff"},
     ]
+
+
+def test_get_animals_sorted_by_older_does_not_edit_parameter():
+    my_zoo = [
+        {"type": "dog", "age": 8, "name": "Alfred"},
+        {"type": "cat", "age": 3, "name": "Puff"},
+        {"type": "Panda", "age": 13, "name": "Grug"},
+    ]
+    get_animals_sorted_by_older(my_zoo)
+
+    assert my_zoo == [
+        {"type": "dog", "age": 8, "name": "Alfred"},
+        {"type": "cat", "age": 3, "name": "Puff"},
+        {"type": "Panda", "age": 13, "name": "Grug"},
+    ]

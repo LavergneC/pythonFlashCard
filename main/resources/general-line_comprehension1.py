@@ -6,4 +6,7 @@ def build_matrix(fillWith: int, number_row: int, number_col: 10) -> list[list[in
 
 
 def test_build_matrix():
-    assert build_matrix(0, 2, 3) == [[0, 0, 0], [0, 0, 0]]
+    assert build_matrix(fillWith=0, number_row=2, number_col=3) == [
+        [0, 0, 0],
+        [0, 0, 0],
+    ]

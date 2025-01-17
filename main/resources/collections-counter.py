@@ -1,7 +1,7 @@
 from collections import Counter
 
 
-def top_three_letters(string):
+def top_three_letters(string: str) -> list[tuple[str, int]]:
     """
     Given a string find the three most frequent letters
     This method should return a list of tuples, where the tuple

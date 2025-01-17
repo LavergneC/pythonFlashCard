@@ -1,6 +1,6 @@
 from collections import deque
-from io import StringIO
-from unittest.mock import patch
+from io import StringIO  # fcPython:keep line
+from unittest.mock import patch  # fcPython:keep line
 
 # Using deque will help adding and poping from left and right
 # It's also faster, O(1) vs O(n) from adding in front

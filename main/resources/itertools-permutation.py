@@ -1,4 +1,4 @@
-import itertools as it
+from itertools import permutations
 
 
 def all_possible_trip(cities: list[str], trip_duration: int = -1) -> list[tuple]:
@@ -12,7 +12,7 @@ def all_possible_trip(cities: list[str], trip_duration: int = -1) -> list[tuple]
     if trip_duration == -1:
         trip_duration = len(cities)
 
-    return list(it.permutations(cities, r=trip_duration))
+    return list(permutations(cities, r=trip_duration))
 
 
 def test_all_possible_trip_basic_trip():
