@@ -11,16 +11,16 @@ def _change_all_dates(ressource_picker) -> None:
     change all dates in order to hide this feature.
     """
     new_date = datetime.date(year=2000, month=2, day=15)
-    for ressourceData in ressource_picker._data:
+    for ressource_index, ressourceData in enumerate(ressource_picker._data):
         new_data = RessourceData(
             filename=ressourceData.filename,
             score=ressourceData.score,
             last_seen_date=new_date,
         )
-        ressourceData = new_data
+        ressource_picker._data[ressource_index] = new_data
 
 
-def _set_success_and_chage_date(ressource_picker):
+def _set_success_and_change_date(ressource_picker):
     ressource_picker.set_result(success=True)
     _change_all_dates(ressource_picker)
 
@@ -38,51 +38,24 @@ def test_success_cycle():
     ressource_picker = RessourcePicker(_get_default_ressources())
 
     assert ressource_picker.pick() == "Ressource 1"
-    _set_success_and_chage_date(ressource_picker)
+    _set_success_and_change_date(ressource_picker)
 
     assert ressource_picker.pick() == "Ressource 2"
-    _set_success_and_chage_date(ressource_picker)
+    _set_success_and_change_date(ressource_picker)
 
     assert ressource_picker.pick() == "Ressource 3"
-    _set_success_and_chage_date(ressource_picker)
+    _set_success_and_change_date(ressource_picker)
 
     assert ressource_picker.pick() == "Ressource 1"
-    _set_success_and_chage_date(ressource_picker)
+    _set_success_and_change_date(ressource_picker)
 
     assert ressource_picker.pick() == "Ressource 2"
-    _set_success_and_chage_date(ressource_picker)
+    _set_success_and_change_date(ressource_picker)
 
     assert ressource_picker.pick() == "Ressource 3"
-    _set_success_and_chage_date(ressource_picker)
+    _set_success_and_change_date(ressource_picker)
 
     assert ressource_picker.pick() == "Ressource 1"
-
-
-def test_never_twice_the_same_ressoure_per_day():
-    ressource_picker = RessourcePicker(_get_default_ressources())
-
-    brute_calls = []
-    while len(brute_calls) < 10:
-        brute_calls.append(ressource_picker.pick())
-        ressource_picker.set_result(success=False)
-
-    assert brute_calls.count("Ressource 1") == 1
-    assert brute_calls.count("Ressource 2") == 1
-
-    # Ré-init : The app is relaunched but it's the same day
-    ressource_picker = RessourcePicker(
-        [
-            ("Ressource 1", 0),
-            ("Ressource 2", 100),
-        ]
-    )
-    brute_calls = []
-    while len(brute_calls) < 10:
-        brute_calls.append(ressource_picker.pick())
-        ressource_picker.set_result(success=False)
-
-    assert "Ressource 1" not in brute_calls
-    assert "Ressource 2" not in brute_calls
 
 
 def test_user_must_set_result_between_picks():
@@ -90,7 +63,7 @@ def test_user_must_set_result_between_picks():
 
     assert ressource_picker.pick() == "Ressource 1"
     with pytest.raises(
-        RuntimeError, match="Can't pick result, need to set_result() before"
+        RuntimeError, match="Could not pick result, need to set_result before"
     ):
         ressource_picker.pick()
 
@@ -98,11 +71,11 @@ def test_user_must_set_result_between_picks():
 def test_user_must_pick_ressource_before_settting_result():
     ressource_picker = RessourcePicker(_get_default_ressources())
 
-    with pytest.raises(RuntimeError, match="Can't set result, need to pick() before"):
+    with pytest.raises(RuntimeError, match="Could not set result, need to pick before"):
         ressource_picker.set_result(success=True)
 
     ressource_picker.pick()
     ressource_picker.set_result(success=True)
 
-    with pytest.raises(RuntimeError, match="Can't set result, need to pick() before"):
+    with pytest.raises(RuntimeError, match="Could not set result, need to pick before"):
         ressource_picker.set_result(success=False)

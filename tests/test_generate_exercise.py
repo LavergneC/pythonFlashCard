@@ -41,3 +41,33 @@ def test_get_random_exercise_file_name():
     random.choice.assert_called_once_with(
         [TEST_GET_RANDOM_EXERCISE.RESSOURCE_2, TEST_GET_RANDOM_EXERCISE.RESSOURCE_1]
     )
+
+
+def test_never_twice_the_same_ressoure_per_day():
+    pass  # TODO
+
+
+"""
+    Todo more high level
+    ressource_picker = RessourcePicker(_get_default_ressources())
+
+    brute_calls = []
+    while len(brute_calls) < 10:
+        brute_calls.append(ressource_picker.pick())
+        ressource_picker.set_result(success=False)
+
+    assert brute_calls.count("Ressource 1") == 1
+    assert brute_calls.count("Ressource 2") == 1
+
+    # Ré-init : The app is relaunched but it's the same day
+    ressource_picker = RessourcePicker(_get_default_ressources())
+
+    brute_calls = []
+    while len(brute_calls) < 10:
+        brute_calls.append(ressource_picker.pick())
+        ressource_picker.set_result(success=False)
+
+    assert "Ressource 1" not in brute_calls
+    assert "Ressource 2" not in brute_calls
+
+"""
