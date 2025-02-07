@@ -79,3 +79,18 @@ def test_user_must_pick_ressource_before_settting_result():
 
     with pytest.raises(RuntimeError, match="Could not set result, need to pick before"):
         ressource_picker.set_result(success=False)
+
+
+def test_success_and_fails():
+    ressource_picker = RessourcePicker(_get_default_ressources())
+    assert ressource_picker.pick() == "Ressource 1"
+    ressource_picker.set_result(success=True)
+
+    assert ressource_picker.pick() == "Ressource 2"
+    ressource_picker.set_result(success=False)
+
+    assert ressource_picker.pick() == "Ressource 3"
+    ressource_picker.set_result(success=True)
+
+    _change_all_dates(ressource_picker)
+    assert ressource_picker.pick() == "Ressource 2"

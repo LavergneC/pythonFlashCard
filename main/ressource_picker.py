@@ -40,7 +40,9 @@ class RessourcePicker:
 
         new_score = self._data[self._picked_index].score
         if success:
-            new_score += 10
+            new_score += min(new_score * -0.29 + 30, 100)
+        else:
+            new_score /= 2
 
         self._data[self._picked_index] = RessourceData(
             filename=self._data[self._picked_index].filename,
