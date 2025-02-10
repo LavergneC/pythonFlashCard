@@ -3,13 +3,13 @@ import shutil
 from os import listdir
 from os.path import isfile, join
 
-from main.constants import RESSOUCES_PATH
+from main.constants import RESSOURCES_PATH
 from main.solution_to_exercise import SolutionToExercice
 
 
 class PythonFlashCards:
     def generate_exercise(self) -> None:
-        solution_file_path = self._get_random_exercise_file_name(RESSOUCES_PATH)
+        solution_file_path = self._get_random_exercise_file_name(RESSOURCES_PATH)
         shutil.copyfile(solution_file_path, "solution.py")
 
         solution_content = ""
