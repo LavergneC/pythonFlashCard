@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, patch
 
 from main.generate_exercise import PythonFlashCards
 from main.ressource_picker import RessourcePicker
+from main.ressource_storage import RessouceStorage
 from tests.constants_test import (
     TEST_GET_RANDOM_EXERCISE,
     TEST_RESSOUCES,
@@ -49,23 +50,27 @@ def test_get_random_exercise_file_name():
 
 def test_never_twice_the_same_ressoure_per_day():
     shutil.copyfile(TEST_RESSOURCE_STORAGE.PATH, TEST_RESSOURCE_STORAGE.PATH_COPY)
-    ressource_picker = RessourcePicker(TEST_RESSOURCE_STORAGE.PATH_COPY)
+    ressource_storage = RessouceStorage(TEST_RESSOURCE_STORAGE.PATH_COPY)
+    ressource_picker = RessourcePicker(ressource_storage.read())
 
     brute_calls = []
     while len(brute_calls) < 10:
         brute_calls.append(ressource_picker.pick())
         ressource_picker.set_result(success=False)
 
-    assert brute_calls.count("Ressource 1") == 1
-    assert brute_calls.count("Ressource 2") == 1
+    assert brute_calls.count("test_ressource_1.py") == 1
+    assert brute_calls.count("test_ressource_2.py") == 1
+    assert brute_calls.count("test_ressource_3.py") == 1
 
     # Ré-init : The app is relaunched but it's the same day
-    ressource_picker = RessourcePicker(TEST_RESSOURCE_STORAGE.PATH_COPY)
+    ressource_storage = RessouceStorage(TEST_RESSOURCE_STORAGE.PATH_COPY)
+    ressource_picker = RessourcePicker(ressource_storage.read())
 
     brute_calls = []
     while len(brute_calls) < 10:
         brute_calls.append(ressource_picker.pick())
         ressource_picker.set_result(success=False)
 
-    assert "Ressource 1" not in brute_calls
-    assert "Ressource 2" not in brute_calls
+    assert "test_ressource_1.py" not in brute_calls
+    assert "test_ressource_2.py" not in brute_calls
+    assert "test_ressource_3.py" not in brute_calls

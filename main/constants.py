@@ -21,3 +21,5 @@ class STATIC_TEXTS:
 KEEP_LINE_TAG = "# fcPython:keep line"
 
 RESSOUCES_PATH = "main/resources"
+RESSOURCE_DB_NAME = "db.csv"
+RESSOURCE_DB_PATH = RESSOUCES_PATH + "/" + RESSOURCE_DB_NAME

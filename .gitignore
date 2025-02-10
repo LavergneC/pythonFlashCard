@@ -173,3 +173,4 @@ cython_debug/
 # Application ignore
 solution.py
 exercise.py
+test_db_copy.csv
