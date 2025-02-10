@@ -1,12 +1,16 @@
 import random
+import shutil
 from os import listdir
 from unittest.mock import MagicMock, patch
 
 from main.generate_exercise import PythonFlashCards
+from main.ressource_picker import RessourcePicker
 from tests.constants_test import (
     TEST_GET_RANDOM_EXERCISE,
     TEST_RESSOUCES,
+    TEST_RESSOURCE_STORAGE,
 )
+from tests.test_ressource_picker import _get_default_ressources
 
 
 @patch(
@@ -44,12 +48,8 @@ def test_get_random_exercise_file_name():
 
 
 def test_never_twice_the_same_ressoure_per_day():
-    pass  # TODO
-
-
-"""
-    Todo more high level
-    ressource_picker = RessourcePicker(_get_default_ressources())
+    shutil.copyfile(TEST_RESSOURCE_STORAGE.PATH, TEST_RESSOURCE_STORAGE.PATH_COPY)
+    ressource_picker = RessourcePicker(TEST_RESSOURCE_STORAGE.PATH_COPY)
 
     brute_calls = []
     while len(brute_calls) < 10:
@@ -60,7 +60,7 @@ def test_never_twice_the_same_ressoure_per_day():
     assert brute_calls.count("Ressource 2") == 1
 
     # Ré-init : The app is relaunched but it's the same day
-    ressource_picker = RessourcePicker(_get_default_ressources())
+    ressource_picker = RessourcePicker(TEST_RESSOURCE_STORAGE.PATH_COPY)
 
     brute_calls = []
     while len(brute_calls) < 10:
@@ -69,5 +69,3 @@ def test_never_twice_the_same_ressoure_per_day():
 
     assert "Ressource 1" not in brute_calls
     assert "Ressource 2" not in brute_calls
-
-"""

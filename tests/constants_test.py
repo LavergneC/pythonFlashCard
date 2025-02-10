@@ -71,3 +71,8 @@ def test_temperature_management_add_temperature():
 
     FUNCTION_1 = "def get_temperature(self, day: str) -> int:"
     FUNCTION_2 = "def add_temperature(self, day: str, temperature: int) -> None:"
+
+
+class TEST_RESSOURCE_STORAGE:
+    PATH = "tests/test_resources/test_db.csv"
+    PATH_COPY = "tests/test_resources/test_db_copy.csv"
