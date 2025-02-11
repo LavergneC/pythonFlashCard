@@ -8,19 +8,19 @@ from main.generate_exercise_components.ressource_picker import (
 )
 
 
-def _change_all_dates(ressource_picker) -> None:
+def _change_all_dates(ressource_picker: RessourcePicker) -> None:
     """
     Any ressouce can be picked only once a day, for test purpose we need to
     change all dates in order to hide this feature.
     """
     new_date = datetime.date(year=2000, month=2, day=15)
-    for ressource_index, ressourceData in enumerate(ressource_picker._data):
+    for ressource_index, ressourceData in enumerate(ressource_picker.ressources):
         new_data = RessourceData(
             filename=ressourceData.filename,
             score=ressourceData.score,
             last_seen_date=new_date,
         )
-        ressource_picker._data[ressource_index] = new_data
+        ressource_picker.ressources[ressource_index] = new_data
 
 
 def _set_success_and_change_date(ressource_picker):

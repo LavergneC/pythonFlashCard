@@ -174,3 +174,5 @@ cython_debug/
 solution.py
 exercise.py
 test_db_copy.csv
+test_db_new.csv
+db.csv

@@ -1,25 +1,23 @@
-import random
+import os
 import shutil
 from os import listdir
-from unittest.mock import MagicMock, patch
 
 from main.generate_exercise import PythonFlashCards
-from main.generate_exercise_components.ressource_picker import RessourcePicker
-from main.generate_exercise_components.ressource_storage import RessouceStorage
 from tests.constants_test import (
-    TEST_GET_RANDOM_EXERCISE,
-    TEST_RESSOUCES,
+    TEST_GENERATE_EXERCISE,
     TEST_RESSOURCE_STORAGE,
 )
 
 
-@patch(
-    "main.generate_exercise.PythonFlashCards._get_random_exercise_file_name",
-    return_value=TEST_RESSOUCES.VERY_SIMPLE,
-)
-def test_generate_exercise(_mock_method):
+def test_generate_exercise():
     # The user launch the application #TODO more real
-    pfc = PythonFlashCards()
+    if os.path.exists(TEST_RESSOURCE_STORAGE.PATH_NEW_DB):
+        os.remove(TEST_RESSOURCE_STORAGE.PATH_NEW_DB)
+
+    pfc = PythonFlashCards(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_NEW_DB,
+        ressource_directory_path=TEST_GENERATE_EXERCISE.RESSOURCE_DIR,
+    )
     pfc.generate_exercise()
 
     # A new file named "solution.py" apears in the working dir
@@ -28,7 +26,7 @@ def test_generate_exercise(_mock_method):
     # It contains a full exercise solution
     with (
         open("solution.py") as solution_file,
-        open(TEST_RESSOUCES.VERY_SIMPLE) as source_file,
+        open(TEST_GENERATE_EXERCISE.SOLUTION_PATH) as source_file,
     ):
         assert solution_file.read() == source_file.read()
 
@@ -36,36 +34,33 @@ def test_generate_exercise(_mock_method):
     assert "exercise.py" in listdir("./")
 
 
-def test_get_random_exercise_file_name():
-    random.choice = MagicMock("choise")
-
-    pfc = PythonFlashCards()
-    pfc._get_random_exercise_file_name(TEST_GET_RANDOM_EXERCISE.PATH)
-
-    random.choice.assert_called_once_with(
-        [TEST_GET_RANDOM_EXERCISE.RESSOURCE_2, TEST_GET_RANDOM_EXERCISE.RESSOURCE_1]
-    )
-
-
 def test_never_twice_the_same_ressoure_per_day():
     shutil.copyfile(TEST_RESSOURCE_STORAGE.PATH, TEST_RESSOURCE_STORAGE.PATH_COPY)
-    ressource_storage = RessouceStorage(TEST_RESSOURCE_STORAGE.PATH_COPY)
-    ressource_picker = RessourcePicker(ressource_storage.read())
+    pfc = PythonFlashCards(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY,
+        ressource_directory_path=TEST_GENERATE_EXERCISE.RESSOURCE_DIR,
+    )
 
-    brute_calls = []
-    while len(brute_calls) < 10:
-        brute_calls.append(ressource_picker.pick())
-        ressource_picker.set_result(success=False)
+    calls_exercises_names = []
+    while len(calls_exercises_names) < 10:
+        pfc.generate_exercise()
+        with open("solution.py") as solution_file:
+            calls_exercises_names.append(solution_file.read().split("\n")[0])
+        pfc.set_exercise_result(True)
 
-    assert brute_calls.count("test_ressource_1.py") == 1
+    assert calls_exercises_names.count("# test_ressource_1.py") == 1
 
     # Ré-init : The app is relaunched but it's the same day
-    ressource_storage = RessouceStorage(TEST_RESSOURCE_STORAGE.PATH_COPY)
-    ressource_picker = RessourcePicker(ressource_storage.read())
+    pfc = PythonFlashCards(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY,
+        ressource_directory_path=TEST_GENERATE_EXERCISE.RESSOURCE_DIR,
+    )
 
-    brute_calls = []
-    while len(brute_calls) < 10:
-        brute_calls.append(ressource_picker.pick())
-        ressource_picker.set_result(success=False)
+    calls_exercises_names = []
+    while len(calls_exercises_names) < 10:
+        pfc.generate_exercise()
+        with open("solution.py") as solution_file:
+            calls_exercises_names.append(solution_file.read().split("\n")[0])
+        pfc.set_exercise_result(True)
 
-    assert "test_ressource_1.py" not in brute_calls
+    assert "# test_ressource_1.py" not in calls_exercises_names

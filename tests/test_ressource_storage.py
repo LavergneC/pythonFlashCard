@@ -1,14 +1,17 @@
 import datetime
+import os
 import shutil
 
 from main.generate_exercise_components.ressource_picker import RessourceData
 from main.generate_exercise_components.ressource_storage import RessouceStorage
-from tests.constants_test import TEST_RESSOURCE_STORAGE
+from tests.constants_test import TEST_GET_RANDOM_EXERCISE, TEST_RESSOURCE_STORAGE
 
 
 def test_get_ressrouce_from_csv() -> None:
     shutil.copyfile(TEST_RESSOURCE_STORAGE.PATH, TEST_RESSOURCE_STORAGE.PATH_COPY)
-    rs = RessouceStorage(TEST_RESSOURCE_STORAGE.PATH_COPY)
+    rs = RessouceStorage(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY, ressource_directory_path=""
+    )
 
     ressources = rs.read()
     assert len(ressources) == 3
@@ -28,7 +31,9 @@ def test_get_ressrouce_from_csv() -> None:
 def test_set_ressource() -> None:
     shutil.copyfile(TEST_RESSOURCE_STORAGE.PATH, TEST_RESSOURCE_STORAGE.PATH_COPY)
 
-    rs = RessouceStorage(ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY)
+    rs = RessouceStorage(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY, ressource_directory_path=""
+    )
     ressources = rs.read()
 
     assert ressources[0].score != 123
@@ -41,7 +46,31 @@ def test_set_ressource() -> None:
     )
     rs.write(ressources=ressources)
 
-    rs = RessouceStorage(ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY)
+    rs = RessouceStorage(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY, ressource_directory_path=""
+    )
     ressources = rs.read()
     assert ressources[0].score == 123
     assert ressources[0].last_seen_date == datetime.date(year=2015, month=5, day=15)
+
+
+def test_db_initialization() -> None:
+    # Make sure there is no db
+    if os.path.exists(TEST_RESSOURCE_STORAGE.PATH_NEW_DB):
+        os.remove(TEST_RESSOURCE_STORAGE.PATH_NEW_DB)
+
+    rs = RessouceStorage(
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_NEW_DB,
+        ressource_directory_path=TEST_GET_RANDOM_EXERCISE.PATH,
+    )
+    ressources = rs.read()
+
+    assert ressources == [
+        RessourceData(
+            filename="ressource2.py", score=0, last_seen_date=datetime.date(2025, 2, 10)
+        ),
+        RessourceData(
+            filename="ressource1.py", score=0, last_seen_date=datetime.date(2025, 2, 10)
+        ),
+    ]
+    assert os.path.exists(TEST_RESSOURCE_STORAGE.PATH_COPY)

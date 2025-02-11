@@ -1,12 +1,19 @@
 class TEST_RESSOUCES:
-    PATH = "tests/test_resources/test_solution_to_exercise"
+    PATH = "tests/test_data/test_solution_to_exercise"
     VERY_SIMPLE = PATH + "/" + "very_simple_exercise.py"
     NO_IMPORT = PATH + "/" + "no_import_left.py"
     CLASS = PATH + "/" + "class_ressource.py"
 
 
+class TEST_GENERATE_EXERCISE:
+    RESSOURCE_DIR = "tests/test_data/test_generate_exercise_ressources"
+    SOLUTION_PATH = (
+        "tests/test_data/test_generate_exercise_ressources/test_ressource_3.py"
+    )
+
+
 class TEST_GET_RANDOM_EXERCISE:
-    PATH = "tests/test_resources/test_random"
+    PATH = "tests/test_data/test_random"
     RESSOURCE_1 = PATH + "/" + "ressource1.py"
     RESSOURCE_2 = PATH + "/" + "ressource2.py"
 
@@ -74,5 +81,6 @@ def test_temperature_management_add_temperature():
 
 
 class TEST_RESSOURCE_STORAGE:
-    PATH = "tests/test_resources/test_db.csv"
-    PATH_COPY = "tests/test_resources/test_db_copy.csv"
+    PATH = "tests/test_data/test_db.csv"
+    PATH_COPY = "tests/test_data/test_db_copy.csv"
+    PATH_NEW_DB = "tests/test_data/test_db_new.csv"

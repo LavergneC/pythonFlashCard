@@ -51,7 +51,8 @@ class SolutionToExercice:
             elif '"""' in line and seen_doctring_triple_quote:
                 return output
 
-        raise Exception("End of docstring not found")
+        msg = f"End of docstring not found: {file_content}"
+        raise Exception(msg)
 
     def _get_tests(self, file_content: str) -> str:
         reading = False
