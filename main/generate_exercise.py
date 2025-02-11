@@ -4,7 +4,7 @@ from os import listdir
 from os.path import isfile, join
 
 from main.constants import RESSOURCES_PATH
-from main.solution_to_exercise import SolutionToExercice
+from main.generate_exercise_components.solution_to_exercise import SolutionToExercice
 
 
 class PythonFlashCards:

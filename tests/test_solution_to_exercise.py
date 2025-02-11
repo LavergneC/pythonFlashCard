@@ -1,5 +1,5 @@
 from main.constants import KEEP_LINE_TAG, STATIC_TEXTS
-from main.solution_to_exercise import SolutionToExercice
+from main.generate_exercise_components.solution_to_exercise import SolutionToExercice
 from tests.constants_test import (
     TEST_CLASS_RESSOURCE,
     TEST_NO_IMPORT_RESSOURCE_DEF,

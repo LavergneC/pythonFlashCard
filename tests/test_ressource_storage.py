@@ -1,8 +1,8 @@
 import datetime
 import shutil
 
-from main.ressource_picker import RessourceData
-from main.ressource_storage import RessouceStorage
+from main.generate_exercise_components.ressource_picker import RessourceData
+from main.generate_exercise_components.ressource_storage import RessouceStorage
 from tests.constants_test import TEST_RESSOURCE_STORAGE
 
 

@@ -2,7 +2,10 @@ import datetime
 
 import pytest
 
-from main.ressource_picker import RessourceData, RessourcePicker
+from main.generate_exercise_components.ressource_picker import (
+    RessourceData,
+    RessourcePicker,
+)
 
 
 def _change_all_dates(ressource_picker) -> None:

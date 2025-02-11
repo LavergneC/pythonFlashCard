@@ -2,7 +2,7 @@ import csv
 from datetime import datetime
 
 from main.constants import RESSOURCE_DB_PATH
-from main.ressource_picker import RessourceData
+from main.generate_exercise_components.ressource_picker import RessourceData
 
 
 class RessouceStorage:

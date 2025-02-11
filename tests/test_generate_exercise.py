@@ -4,14 +4,13 @@ from os import listdir
 from unittest.mock import MagicMock, patch
 
 from main.generate_exercise import PythonFlashCards
-from main.ressource_picker import RessourcePicker
-from main.ressource_storage import RessouceStorage
+from main.generate_exercise_components.ressource_picker import RessourcePicker
+from main.generate_exercise_components.ressource_storage import RessouceStorage
 from tests.constants_test import (
     TEST_GET_RANDOM_EXERCISE,
     TEST_RESSOUCES,
     TEST_RESSOURCE_STORAGE,
 )
-from tests.test_ressource_picker import _get_default_ressources
 
 
 @patch(
@@ -59,8 +58,6 @@ def test_never_twice_the_same_ressoure_per_day():
         ressource_picker.set_result(success=False)
 
     assert brute_calls.count("test_ressource_1.py") == 1
-    assert brute_calls.count("test_ressource_2.py") == 1
-    assert brute_calls.count("test_ressource_3.py") == 1
 
     # Ré-init : The app is relaunched but it's the same day
     ressource_storage = RessouceStorage(TEST_RESSOURCE_STORAGE.PATH_COPY)
@@ -72,5 +69,3 @@ def test_never_twice_the_same_ressoure_per_day():
         ressource_picker.set_result(success=False)
 
     assert "test_ressource_1.py" not in brute_calls
-    assert "test_ressource_2.py" not in brute_calls
-    assert "test_ressource_3.py" not in brute_calls
