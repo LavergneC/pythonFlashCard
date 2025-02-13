@@ -38,6 +38,7 @@ class RessouceStorage:
             RessourceData(filename=file_name, score=0, last_seen_date=yesterday)
             for file_name in os.listdir(ressource_directory_path)
             if isfile(join(ressource_directory_path, file_name))
+            and file_name[-3:] == ".py"
         ]
 
         self.write(ressources=new_ressources)
