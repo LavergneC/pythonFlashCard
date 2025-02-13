@@ -12,7 +12,10 @@ def flower_field_to_bouquet(flowers: list[str], bouquet_size) -> list[tuple]:
 
 
 def test_flower_field_to_bouquet_basic():
-    bouquets = flower_field_to_bouquet(["daisie", "poppie", "lupine"], bouquet_size=2)
+    bouquets = flower_field_to_bouquet(
+        flowers=["daisie", "poppie", "lupine"],
+        bouquet_size=2,
+    )
 
     assert ("daisie", "poppie") in bouquets
     assert ("daisie", "lupine") in bouquets
@@ -22,7 +25,10 @@ def test_flower_field_to_bouquet_basic():
 
 
 def test_flower_field_to_bouquet_duplicate():
-    bouquets = flower_field_to_bouquet(["daisie", "daisie", "lupine"], bouquet_size=2)
+    bouquets = flower_field_to_bouquet(
+        flowers=["daisie", "daisie", "lupine"],
+        bouquet_size=2,
+    )
 
     assert ("daisie", "daisie") in bouquets
     assert ("daisie", "lupine") in bouquets
