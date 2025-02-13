@@ -4,15 +4,13 @@ import shutil
 
 from main.generate_exercise_components.ressource_picker import RessourceData
 from main.generate_exercise_components.ressource_storage import RessouceStorage
-from tests.constants_test import TEST_RESSOURCE_STORAGE, TEST_RESSOURCE_STORAGE_CSV
+from tests.constants_test import TEST_RESSOURCE_STORAGE
 
 
 def test_get_ressrouce_from_csv() -> None:
-    shutil.copyfile(
-        TEST_RESSOURCE_STORAGE_CSV.PATH, TEST_RESSOURCE_STORAGE_CSV.PATH_COPY
-    )
+    shutil.copyfile(TEST_RESSOURCE_STORAGE.DB_PATH, TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
     rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_COPY,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
         ressource_directory_path="",
     )
 
@@ -32,12 +30,10 @@ def test_get_ressrouce_from_csv() -> None:
 
 
 def test_set_ressource() -> None:
-    shutil.copyfile(
-        TEST_RESSOURCE_STORAGE_CSV.PATH, TEST_RESSOURCE_STORAGE_CSV.PATH_COPY
-    )
+    shutil.copyfile(TEST_RESSOURCE_STORAGE.DB_PATH, TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
 
     rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_COPY,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
         ressource_directory_path="",
     )
     ressources = rs.read()
@@ -53,7 +49,7 @@ def test_set_ressource() -> None:
     rs.write(ressources=ressources)
 
     rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_COPY,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
         ressource_directory_path="",
     )
     ressources = rs.read()
@@ -63,11 +59,11 @@ def test_set_ressource() -> None:
 
 def test_db_initialization() -> None:
     # Make sure there is no db
-    if os.path.exists(TEST_RESSOURCE_STORAGE_CSV.PATH_NEW_DB):
-        os.remove(TEST_RESSOURCE_STORAGE_CSV.PATH_NEW_DB)
+    if os.path.exists(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB):
+        os.remove(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB)
 
     rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_NEW_DB,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB,
         ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
     )
     ressources = rs.read()
@@ -78,4 +74,4 @@ def test_db_initialization() -> None:
         RessourceData(filename="ressource2.py", score=0, last_seen_date=yesterday),
         RessourceData(filename="ressource1.py", score=0, last_seen_date=yesterday),
     ]
-    assert os.path.exists(TEST_RESSOURCE_STORAGE_CSV.PATH_COPY)
+    assert os.path.exists(TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
