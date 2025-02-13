@@ -7,11 +7,7 @@ from main.generate_exercise_components.ressource_picker import RessourceData
 
 
 class RessouceStorage:
-    def __init__(
-        self,
-        ressource_csv_path: str,
-        ressource_directory_path: str,
-    ) -> None:
+    def __init__(self, ressource_csv_path: str, ressource_directory_path: str) -> None:
         self.ressource_csv_path = ressource_csv_path
         if not os.path.exists(self.ressource_csv_path):
             self._init_db(ressource_directory_path)
