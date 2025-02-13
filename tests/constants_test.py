@@ -12,10 +12,16 @@ class TEST_GENERATE_EXERCISE:
     )
 
 
-class TEST_GET_RANDOM_EXERCISE:
-    PATH = "tests/test_data/test_random"
+class TEST_RESSOURCE_STORAGE:
+    PATH = "tests/test_data/test_ressource_storage"
     RESSOURCE_1 = PATH + "/" + "ressource1.py"
     RESSOURCE_2 = PATH + "/" + "ressource2.py"
+
+
+class TEST_RESSOURCE_STORAGE_CSV:
+    PATH = "tests/test_data/test_db.csv"
+    PATH_COPY = "tests/test_data/test_db_copy.csv"
+    PATH_NEW_DB = "tests/test_data/test_db_new.csv"
 
 
 class TEST_SIMPLE:
@@ -78,9 +84,3 @@ def test_temperature_management_add_temperature():
 
     FUNCTION_1 = "def get_temperature(self, day: str) -> int:"
     FUNCTION_2 = "def add_temperature(self, day: str, temperature: int) -> None:"
-
-
-class TEST_RESSOURCE_STORAGE:
-    PATH = "tests/test_data/test_db.csv"
-    PATH_COPY = "tests/test_data/test_db_copy.csv"
-    PATH_NEW_DB = "tests/test_data/test_db_new.csv"

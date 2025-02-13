@@ -5,17 +5,17 @@ from os import listdir
 from main.generate_exercise import PythonFlashCards
 from tests.constants_test import (
     TEST_GENERATE_EXERCISE,
-    TEST_RESSOURCE_STORAGE,
+    TEST_RESSOURCE_STORAGE_CSV,
 )
 
 
 def test_generate_exercise():
     # The user launch the application #TODO more real
-    if os.path.exists(TEST_RESSOURCE_STORAGE.PATH_NEW_DB):
-        os.remove(TEST_RESSOURCE_STORAGE.PATH_NEW_DB)
+    if os.path.exists(TEST_RESSOURCE_STORAGE_CSV.PATH_NEW_DB):
+        os.remove(TEST_RESSOURCE_STORAGE_CSV.PATH_NEW_DB)
 
     pfc = PythonFlashCards(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_NEW_DB,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_NEW_DB,
         ressource_directory_path=TEST_GENERATE_EXERCISE.RESSOURCE_DIR,
     )
     pfc.generate_exercise()
@@ -35,9 +35,11 @@ def test_generate_exercise():
 
 
 def test_never_twice_the_same_ressoure_per_day():
-    shutil.copyfile(TEST_RESSOURCE_STORAGE.PATH, TEST_RESSOURCE_STORAGE.PATH_COPY)
+    shutil.copyfile(
+        TEST_RESSOURCE_STORAGE_CSV.PATH, TEST_RESSOURCE_STORAGE_CSV.PATH_COPY
+    )
     pfc = PythonFlashCards(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_COPY,
         ressource_directory_path=TEST_GENERATE_EXERCISE.RESSOURCE_DIR,
     )
 
@@ -52,7 +54,7 @@ def test_never_twice_the_same_ressoure_per_day():
 
     # Ré-init : The app is relaunched but it's the same day
     pfc = PythonFlashCards(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.PATH_COPY,
+        ressource_csv_path=TEST_RESSOURCE_STORAGE_CSV.PATH_COPY,
         ressource_directory_path=TEST_GENERATE_EXERCISE.RESSOURCE_DIR,
     )
 

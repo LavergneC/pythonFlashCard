@@ -25,7 +25,7 @@ def str_to_sentences(long_str: str) -> list[str]:
     return sentences
 
 
-def test_str_to_sentences():
+def _test_str_to_sentences():
     assert str_to_sentences("Hello word. How are you?") == [
         "Hello word",
         " How are you",
