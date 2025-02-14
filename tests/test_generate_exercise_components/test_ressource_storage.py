@@ -74,20 +74,51 @@ def test_db_initialization() -> None:
         ressource_csv_path=TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB,
         ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
     )
-    ressources = rs.read()
 
+    ressources = rs.read()
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).date()
 
-    assert ressources == [
-        RessourceData(
-            filename=TEST_RESSOURCE_STORAGE.RESSOURCE_2,
-            score=0,
-            last_seen_date=yesterday,
-        ),
+    assert (
         RessourceData(
             filename=TEST_RESSOURCE_STORAGE.RESSOURCE_1,
             score=0,
             last_seen_date=yesterday,
-        ),
-    ]
-    assert os.path.exists(TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
+        )
+        in ressources
+    )
+
+    assert (
+        RessourceData(
+            filename=TEST_RESSOURCE_STORAGE.RESSOURCE_2,
+            score=0,
+            last_seen_date=yesterday,
+        )
+        in ressources
+    )
+
+    assert len(ressources) == 2
+    assert os.path.exists(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB)
+
+
+@pytest.fixture
+def third_ressource():
+    shutil.copyfile(
+        TEST_RESSOURCE_STORAGE.RESSOURCE_3_FROM, TEST_RESSOURCE_STORAGE.RESSOURCE_3_TO
+    )
+    yield
+
+    # Teardown
+    os.remove(TEST_RESSOURCE_STORAGE.RESSOURCE_3_TO)
+
+
+def test_adding_a_new_ressource(csv_db_file, third_ressource) -> None:
+    rs = RessouceStorage(
+        ressource_csv_path=csv_db_file,
+        ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
+    )
+
+    ressources = rs.read()
+
+    assert False
+    # TODO make the test_db.csv match the dir content
+    # rename test_db.csv fileS to be unique
