@@ -79,7 +79,15 @@ def test_db_initialization() -> None:
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).date()
 
     assert ressources == [
-        RessourceData(filename="ressource2.py", score=0, last_seen_date=yesterday),
-        RessourceData(filename="ressource1.py", score=0, last_seen_date=yesterday),
+        RessourceData(
+            filename=TEST_RESSOURCE_STORAGE.RESSOURCE_2,
+            score=0,
+            last_seen_date=yesterday,
+        ),
+        RessourceData(
+            filename=TEST_RESSOURCE_STORAGE.RESSOURCE_1,
+            score=0,
+            last_seen_date=yesterday,
+        ),
     ]
     assert os.path.exists(TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
