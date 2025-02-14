@@ -1,4 +1,5 @@
 import shutil
+import sys
 
 from main.constants import RESSOURCE_DB_PATH, RESSOURCES_PATH
 from main.generate_exercise_components.ressource_picker import RessourcePicker
@@ -48,6 +49,12 @@ class PythonFlashCards:
 
 
 if __name__ == "__main__":
+    if len(sys.argv) == 3 and sys.argv[1] == "test_exercise":
+        with open(sys.argv[2]) as exercise_file:
+            ste = SolutionToExercice()
+            print(ste.solution_to_exercice(solution_content=exercise_file.read()))
+        exit()
+
     pfc = PythonFlashCards()
 
     while True:
