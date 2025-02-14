@@ -2,15 +2,25 @@ import datetime
 import os
 import shutil
 
+import pytest
+
 from main.generate_exercise_components.ressource_picker import RessourceData
 from main.generate_exercise_components.ressource_storage import RessouceStorage
 from tests.constants_test import TEST_RESSOURCE_STORAGE
 
 
-def test_get_ressrouce_from_csv() -> None:
+@pytest.fixture
+def csv_db_file():
     shutil.copyfile(TEST_RESSOURCE_STORAGE.DB_PATH, TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
+    yield TEST_RESSOURCE_STORAGE.DB_PATH_COPY
+
+    # tear down
+    os.remove(TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
+
+
+def test_get_ressrouce_from_csv(csv_db_file) -> None:
     rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
+        ressource_csv_path=csv_db_file,
         ressource_directory_path="",
     )
 
@@ -29,9 +39,7 @@ def test_get_ressrouce_from_csv() -> None:
     assert ressources[2].last_seen_date == datetime.date(year=2000, month=12, day=30)
 
 
-def test_set_ressource() -> None:
-    shutil.copyfile(TEST_RESSOURCE_STORAGE.DB_PATH, TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
-
+def test_set_ressource(csv_db_file) -> None:
     rs = RessouceStorage(
         ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
         ressource_directory_path="",
