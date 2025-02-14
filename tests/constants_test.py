@@ -3,17 +3,17 @@ class TEST_GENERATE_EXERCISE:
     SOLUTION_PATH = (
         "tests/test_data/test_generate_exercise_ressources/test_ressource_3.py"
     )
-    DB_PATH = RESSOURCE_DIR + "/test_db.csv"
-    DB_PATH_COPY = RESSOURCE_DIR + "/test_db_copy.csv"
-    db_PATH_NEW_DB = RESSOURCE_DIR + "/test_db_new.csv"
+    DB_PATH = RESSOURCE_DIR + "/test_generate_exercise_db.csv"
+    DB_PATH_COPY = RESSOURCE_DIR + "/test_generate_exercise_copy_db.csv"
+    db_PATH_NEW_DB = RESSOURCE_DIR + "/test_generate_exercise_db_new.csv"
 
 
 class TEST_RESSOURCE_STORAGE:
     PATH = "tests/test_data/test_ressource_storage"
     RESSOURCE_1 = "test_ressource_10.py"
     RESSOURCE_2 = "test_ressource_20.py"
-    DB_PATH = PATH + "/test_db.csv"
-    DB_PATH_COPY = PATH + "/test_db_copy.csv"
+    DB_PATH = PATH + "/test_ressource_storage_db.csv"
+    DB_PATH_COPY = PATH + "/test_ressource_storage_db_copy.csv"
     db_PATH_NEW_DB = PATH + "/test_db_new.csv"
 
 
