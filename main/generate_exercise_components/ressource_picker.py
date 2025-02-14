@@ -44,6 +44,10 @@ class RessourcePicker:
         else:
             new_score /= 2
 
+        print(
+            f"Score update on {self.ressources[self._picked_index].filename}: "
+            f"{self.ressources[self._picked_index].score} -> {new_score}"
+        )
         self.ressources[self._picked_index] = RessourceData(
             filename=self.ressources[self._picked_index].filename,
             score=new_score,
