@@ -78,7 +78,7 @@ def test_content_class_exercice():
 
     # Texts are correctly added
     assert (
-        f"{TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2}\n{STATIC_TEXTS.CLASS_USER_CODE}"
+        f"{TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2}\n\n{STATIC_TEXTS.CLASS_USER_CODE}"
         in file_content
     )
     assert (STATIC_TEXTS.TESTS_PART + "def _test") in file_content

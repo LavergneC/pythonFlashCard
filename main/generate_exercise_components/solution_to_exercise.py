@@ -70,7 +70,9 @@ class SolutionToExercice:
         output = ""
 
         for line in file_content.split("\n"):
-            if line.startswith("class") or "    def " in line:
-                output += line + "\n"
+            if line.startswith("class"):
+                output += line + "\n    pass\n\n"
+            elif line.startswith("    def "):
+                output += line + "\n        pass\n\n"
 
         return output

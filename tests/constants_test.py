@@ -77,9 +77,9 @@ def test_temperature_management_add_temperature():
     random.random()
 """
 
-    INIT_FUNCTION = (
-        "def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:"
-    )
+    INIT_FUNCTION = "def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:\n        pass"
 
-    FUNCTION_1 = "def get_temperature(self, day: str) -> int:"
-    FUNCTION_2 = "def add_temperature(self, day: str, temperature: int) -> None:"
+    FUNCTION_1 = "def get_temperature(self, day: str) -> int:\n        pass"
+    FUNCTION_2 = (
+        "def add_temperature(self, day: str, temperature: int) -> None:\n        pass"
+    )

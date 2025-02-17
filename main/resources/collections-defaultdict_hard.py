@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class SaleLine:  # fcPython:keep line
+class SaleLine:
     city: str
     product: str
     quantity: int
