@@ -55,9 +55,10 @@ def test_content_class_exercice():
     with open(TEST_SOLUTION_TO_EXERCISE_RESSOUCES.CLASS) as solution_file:
         file_content = ste.solution_to_exercice(solution_file.read())
 
-    # Some import are present
+    # correct import is kept
     assert "import random" in file_content
     assert "from collections import defaultdict" not in file_content
+    assert "dataclass" not in file_content
 
     # Class definition was kept
     assert "class MeteoData" in file_content

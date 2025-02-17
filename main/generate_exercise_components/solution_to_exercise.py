@@ -70,7 +70,7 @@ class SolutionToExercice:
         output = ""
 
         for line in file_content.split("\n"):
-            if "class" in line or "    def " in line:
+            if line.startswith("class") or "    def " in line:
                 output += line + "\n"
 
         return output

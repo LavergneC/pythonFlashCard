@@ -1,5 +1,6 @@
 import random  # fcPython:keep line
 from collections import defaultdict
+from dataclasses import dataclass
 
 
 class MeteoData:
