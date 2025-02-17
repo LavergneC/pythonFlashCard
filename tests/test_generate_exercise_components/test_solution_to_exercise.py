@@ -65,20 +65,50 @@ def test_content_class_exercice():
 
     # all public methods definitions
     assert TEST_SOLUTION_TO_EXERCISE_CLASS.INIT_FUNCTION in file_content
-    assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_1 in file_content
-    assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2 in file_content
+    assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_1_DEFINITION in file_content
+    assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2_DEFINITION in file_content
 
     # Function bodies aren't keept
     assert "defaultdict" not in file_content
     assert "append" not in file_content
     assert "self.temperatures.get(day, [])" not in file_content
 
+    # Docstring are kept
+    assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_1_DOCSTRING in file_content
+    assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2_DOCSTRING in file_content
+
     # Tests are kept
     assert TEST_SOLUTION_TO_EXERCISE_CLASS.TESTS in file_content
 
     # Texts are correctly added
     assert (
-        f"{TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2}\n\n{STATIC_TEXTS.CLASS_USER_CODE}"
+        TEST_SOLUTION_TO_EXERCISE_CLASS.STATIC_TEXT_WITH_PREVIOUS_CONTENT
         in file_content
     )
+
     assert (STATIC_TEXTS.TESTS_PART + "def _test") in file_content
+
+
+def test_get_docstring() -> None:
+    ste = SolutionToExercice()
+
+    no_doc_string_content = [
+        "bv couibhvcbdfu gbhcvkbffdiobv vb",
+        'dsflk kn "jiohbui" ezajfdsf',
+    ]
+    assert ste._get_docstring(no_doc_string_content) == ""
+
+    doc_string_in_content = [
+        "",
+        "  def get_temperature(self, day: str) -> int:",
+        '      """   ',
+        " the doc string line 1 ",
+        " the doc string line 2 ",
+        '   """ ',
+        "bla ble lf  dgjhesdfg lkfdgh",
+    ]
+
+    assert (
+        ste._get_docstring(doc_string_in_content)
+        == '      """   \n the doc string line 1 \n the doc string line 2 \n   """ '
+    )

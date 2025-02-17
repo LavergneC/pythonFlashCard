@@ -68,11 +68,35 @@ class SolutionToExercice:
 
     def _get_main_class_content(self, file_content: str) -> str:
         output = ""
+        splitted_content = file_content.split("\n")
 
-        for line in file_content.split("\n"):
-            if line.startswith("class"):
+        for line_index, line in enumerate(splitted_content):
+            if line.startswith("class "):
                 output += line + "\n    pass\n\n"
+
+            if line.startswith("    def") and '"""' in splitted_content[line_index + 1]:
+                output += line + "\n"
+                output += self._get_docstring(splitted_content[line_index:])
+                output += "\n        pass\n\n"
             elif line.startswith("    def "):
                 output += line + "\n        pass\n\n"
 
         return output
+
+    def _get_docstring(self, file_content_splitted: list[str]) -> str:
+        """
+        Returns the first complete docstring or an empty string
+        """
+        lines = file_content_splitted.copy()
+        trimmed_lines = [line.replace(" ", "") for line in lines]
+
+        if '"""' not in trimmed_lines:
+            return ""
+
+        docstring_start_index = trimmed_lines.index('"""')
+        trimmed_lines.remove('"""')
+        docstring_end_index = trimmed_lines.index('"""')
+
+        return "\n".join(
+            file_content_splitted[docstring_start_index : docstring_end_index + 2]
+        )

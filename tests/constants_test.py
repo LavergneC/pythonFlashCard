@@ -1,3 +1,6 @@
+from main.constants import STATIC_TEXTS
+
+
 class TEST_GENERATE_EXERCISE:
     RESSOURCE_DIR = "tests/test_data/test_generate_exercise_ressources"
     SOLUTION_PATH = (
@@ -79,7 +82,13 @@ def test_temperature_management_add_temperature():
 
     INIT_FUNCTION = "def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:\n        pass"
 
-    FUNCTION_1 = "def get_temperature(self, day: str) -> int:\n        pass"
-    FUNCTION_2 = (
-        "def add_temperature(self, day: str, temperature: int) -> None:\n        pass"
+    FUNCTION_1_DEFINITION = "def get_temperature(self, day: str) -> int:"
+    FUNCTION_2_DEFINITION = (
+        "def add_temperature(self, day: str, temperature: int) -> None:"
     )
+
+    FUNCTION_1_DOCSTRING = """This function will return the temperature for a given day
+        it will return an empty list if the day isn't recorded"""
+    FUNCTION_2_DOCSTRING = "Add a temperature to a given day"
+
+    STATIC_TEXT_WITH_PREVIOUS_CONTENT = f'{FUNCTION_2_DOCSTRING}\n        """\n        pass\n\n{STATIC_TEXTS.CLASS_USER_CODE}'
