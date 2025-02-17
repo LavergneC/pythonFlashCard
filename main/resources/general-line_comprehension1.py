@@ -11,3 +11,9 @@ def test_build_matrix():
         [0, 0, 0],
         [0, 0, 0],
     ]
+
+    assert build_matrix(fillWith=5, number_row=3, number_col=2) == [
+        [5, 5],
+        [5, 5],
+        [5, 5],
+    ]

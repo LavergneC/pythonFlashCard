@@ -1,10 +1,10 @@
 # general-easy-fizz_buzz.py
-def fizz_buzz(numbers):
+def fizz_buzz(numbers: list) -> None:
     """
     Given a list a interger :
-    1- Replace number divisible by 3 with 'fizz'
-    2- Replace number divisible by 5 wuth 'buzz'
-    3- Replace number divisible by both with 'fizzbuzz'
+    1- Replace number(s) divisible by 3 with 'fizz'
+    2- Replace number(s) divisible by 5 wuth 'buzz'
+    3- Replace number(s) divisible by both with 'fizzbuzz'
     """
     for i, number in enumerate(numbers):
         if number % 3 == 0:

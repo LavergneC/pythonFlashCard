@@ -1,10 +1,10 @@
 # collections-defaultdict_hard.py
-from collections import defaultdict  # but not that
-from dataclasses import dataclass  # remove that from question
+from collections import defaultdict
+from dataclasses import dataclass
 
 
 @dataclass
-class SaleLine:
+class SaleLine:  # fcPython:keep line
     city: str
     product: str
     quantity: int
