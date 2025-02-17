@@ -16,12 +16,10 @@ class TicketQueue(object):
         self.ticket_queue.append(name)
 
     def service_person(self):
-        """ """
         name = self.ticket_queue.popleft()
         print(f"{name} has been serviced")
 
     def bypass_queue(self, name):
-        """ """
         print(f"{name} has bypassed the queue")
         self.ticket_queue.appendleft(name)
 

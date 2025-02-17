@@ -35,24 +35,14 @@ class SolutionToExercice:
         raise Exception("End of import not found")
 
     def _get_main_function_decraration(self, file_content: str) -> str:
-        reading = False
-        output = ""
-        seen_doctring_triple_quote = False
+        def_lines = [line for line in file_content.split("\n") if "def " in line]
 
-        for line in file_content.split("\n"):
-            if "def " in line:
-                reading = True
+        if not def_lines:
+            raise RuntimeError("Could not find any 'def ' in file_content")
 
-            if reading:
-                output += line + "\n"
-
-            if '"""' in line and not seen_doctring_triple_quote:
-                seen_doctring_triple_quote = True
-            elif '"""' in line and seen_doctring_triple_quote:
-                return output
-
-        msg = f"End of docstring not found: {file_content}"
-        raise Exception(msg)
+        return (
+            def_lines[0] + "\n" + self._get_docstring(file_content.split("\n")) + "\n"
+        )
 
     def _get_tests(self, file_content: str) -> str:
         reading = False
