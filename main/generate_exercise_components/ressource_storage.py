@@ -8,9 +8,22 @@ from main.generate_exercise_components.ressource_picker import RessourceData
 
 class RessouceStorage:
     def __init__(self, ressource_csv_path: str, ressource_directory_path: str) -> None:
+        self.dir_path = ressource_directory_path
         self.ressource_csv_path = ressource_csv_path
-        if not os.path.exists(self.ressource_csv_path):
-            self._init_db(ressource_directory_path)
+
+        old_db = []
+        if os.path.exists(self.ressource_csv_path):
+            old_db = self.read()
+
+        new_ressources = [
+            self._create_or_get_ressource_data(
+                filename=file_name,
+                ressource_list=old_db,
+            )
+            for file_name in self._get_ressource_filenames()
+        ]
+
+        self.write(new_ressources)
 
     def read(self) -> list[RessourceData]:
         with open(self.ressource_csv_path, "r") as f:
@@ -31,14 +44,24 @@ class RessouceStorage:
             writer.writerow(RessourceData._fields)
             writer.writerows(ressources)
 
-    def _init_db(self, ressource_directory_path: str) -> None:
-        yesterday = (datetime.now() - timedelta(days=1)).date()
-
-        new_ressources = [
-            RessourceData(filename=file_name, score=0, last_seen_date=yesterday)
-            for file_name in os.listdir(ressource_directory_path)
-            if isfile(join(ressource_directory_path, file_name))
-            and file_name[-3:] == ".py"
+    def _get_ressource_filenames(self) -> list[str]:
+        return [
+            filename
+            for filename in os.listdir(self.dir_path)
+            if isfile(join(self.dir_path, filename)) and filename.endswith(".py")
         ]
 
-        self.write(ressources=new_ressources)
+    def _create_or_get_ressource_data(
+        self, filename: str, ressource_list: list[RessourceData]
+    ) -> RessourceData:
+        """
+        This function scan the ressource_list in order to file a ressrouce with a
+        matching ressource_filename and return it's score.
+        Return 0 if the ressource does not exists
+        """
+        for ressource in ressource_list:
+            if ressource.filename == filename:
+                return ressource
+
+        yesterday = (datetime.now() - timedelta(days=1)).date()
+        return RessourceData(filename=filename, score=0, last_seen_date=yesterday)

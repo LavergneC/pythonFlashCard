@@ -12,9 +12,12 @@ class TEST_RESSOURCE_STORAGE:
     PATH = "tests/test_data/test_ressource_storage"
     RESSOURCE_1 = "test_ressource_10.py"
     RESSOURCE_2 = "test_ressource_20.py"
+    RESSOURCE_3 = "test_ressource_30.py"
     DB_PATH = PATH + "/test_ressource_storage_db.csv"
     DB_PATH_COPY = PATH + "/test_ressource_storage_db_copy.csv"
-    db_PATH_NEW_DB = PATH + "/test_db_new.csv"
+    db_PATH_NEW_DB = PATH + "/test_ressource_storage_db_new.csv"
+    RESSOURCE_3_FROM = PATH + "/test_dir/" + "bad_located_ressource.py"
+    RESSOURCE_3_TO = PATH + "/" + "test_ressource_30.py"
 
 
 class TEST_SOLUTION_TO_EXERCISE_RESSOUCES:
