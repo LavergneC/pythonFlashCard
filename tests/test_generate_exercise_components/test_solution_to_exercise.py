@@ -71,7 +71,7 @@ def test_content_class_exercice():
     # Function bodies aren't keept
     assert "defaultdict" not in file_content
     assert "append" not in file_content
-    assert "return" not in file_content
+    assert "self.temperatures.get(day, [])" not in file_content
 
     # Tests are kept
     assert TEST_SOLUTION_TO_EXERCISE_CLASS.TESTS in file_content
@@ -81,4 +81,4 @@ def test_content_class_exercice():
         f"{TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2}\n{STATIC_TEXTS.CLASS_USER_CODE}"
         in file_content
     )
-    assert (STATIC_TEXTS.TESTS_PART + "def test_") in file_content
+    assert (STATIC_TEXTS.TESTS_PART + "def _test") in file_content

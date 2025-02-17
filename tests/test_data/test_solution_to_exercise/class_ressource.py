@@ -23,26 +23,23 @@ class MeteoData:
         self.temperatures[day].append(temperature)
 
 
-def test_temperature_management_get_temperature():
-    temperatures = {
+def _test_temperature() -> dict[str, list[int]]:
+    return {
         "07/01/2024": [0, 1, 2, 5],
         "05/01/2024": [1, 23, 0],
         "08/10/2024": [10, 15, 20, 17, 7],
     }
 
-    meteo_data = MeteoData(temperatures)
+
+def test_temperature_management_get_temperature():
+    meteo_data = MeteoData(_test_temperature())
 
     assert meteo_data.get_temperature("07/01/2024") == [0, 1, 2, 5]
     assert meteo_data.get_temperature("05/05/2000") == []
 
 
 def test_temperature_management_add_temperature():
-    temperatures = {
-        "07/01/2024": [0, 1, 2, 5],
-        "05/01/2024": [1, 23, 0],
-        "08/10/2024": [10, 15, 20, 17, 7],
-    }
-    meteo_data = MeteoData(temperatures)
+    meteo_data = MeteoData(_test_temperature())
 
     meteo_data.add_temperature("07/01/2024", 9)
     meteo_data.add_temperature("09/01/2024", 1)
