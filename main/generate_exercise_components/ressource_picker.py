@@ -13,7 +13,7 @@ class RessourcePicker:
         """
         Returns a ressource name
         """
-        self._sort_ressrouces()
+        self._sort_ressources()
 
         if self._waiting_result:
             msg = "Could not pick result, need to set_result before"
@@ -54,7 +54,7 @@ class RessourcePicker:
             last_seen_date=datetime.datetime.now().date(),
         )
 
-    def _sort_ressrouces(self):
+    def _sort_ressources(self):
         self.ressources = sorted(
             self.ressources, key=lambda ressourceData: ressourceData.score
         )

@@ -16,7 +16,7 @@ class RessouceStorage:
             old_db = self.read()
 
         new_ressources = [
-            self._create_or_get_ressource_data(
+            self._get_or_create_ressource_data(
                 filename=file_name,
                 ressource_list=old_db,
             )
@@ -51,11 +51,11 @@ class RessouceStorage:
             if isfile(join(self.dir_path, filename)) and filename.endswith(".py")
         ]
 
-    def _create_or_get_ressource_data(
+    def _get_or_create_ressource_data(
         self, filename: str, ressource_list: list[RessourceData]
     ) -> RessourceData:
         """
-        This function scan the ressource_list in order to file a ressrouce with a
+        This function scan the ressource_list in order to file a ressource with a
         matching ressource_filename and return it's score.
         Return 0 if the ressource does not exists
         """

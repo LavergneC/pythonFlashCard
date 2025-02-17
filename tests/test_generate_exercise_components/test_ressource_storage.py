@@ -18,7 +18,7 @@ def csv_db_file():
     os.remove(TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
 
 
-def test_get_ressrouce_from_csv(csv_db_file) -> None:
+def test_get_ressource_from_csv(csv_db_file) -> None:
     rs = RessouceStorage(
         ressource_csv_path=csv_db_file,
         ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
