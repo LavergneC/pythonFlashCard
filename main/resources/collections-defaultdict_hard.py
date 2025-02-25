@@ -45,7 +45,7 @@ def _test_setup_sale_manager():
     return SaleManager(initial_data)
 
 
-def test_sale_datat_get_temperature():
+def test_sale_data_get_quantity():
     sale_manager = _test_setup_sale_manager()
 
     assert sale_manager.get_quantity(city="Boston", product="Bananas") == 50
@@ -56,7 +56,6 @@ def test_sale_datat_get_temperature():
 def test_sale_datat_add_sell_line():
     sale_manager = _test_setup_sale_manager()
 
-    sale_manager = _test_setup_sale_manager()
     sale_manager.add_sale_line(SaleLine("New York", "Apples", 7))
     sale_manager.add_sale_line(SaleLine("Atlanta", "Blueberry", 10))
     sale_manager.add_sale_line(SaleLine("Bordeaux", "Pear", 140))

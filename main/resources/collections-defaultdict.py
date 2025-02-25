@@ -11,7 +11,7 @@ class MeteoData:
         This function will return the temperature for a given day
         it will return an empty list if the day isn't recorded
         """
-        return self.temperatures.get(day, [])
+        return self.temperatures[day]
 
     def add_temperature(self, day: str, temperature: int) -> None:
         """
