@@ -15,16 +15,16 @@ class SaleManager:
         self.sales_data = defaultdict(lambda: defaultdict(int))
 
         for sale_line in initial_sale_lines:
-            self.sales_data[sale_line.city][sale_line.product] = sale_line.quantity
+            self.add_sale_line(sale_line=sale_line)
 
-    def get_quantity(self, city: str, product: str):
+    def get_quantity(self, city: str, product: str) -> int:
         """
         This function will return the quantity for given parameters.
         It returns 0 if no line registered for the given parameters
         """
         return self.sales_data[city][product]
 
-    def add_sale_line(self, sale_line: SaleLine):
+    def add_sale_line(self, sale_line: SaleLine) -> None:
         """
         Add a now sale line to the registery, either create a new line or append to the existing one
         """
