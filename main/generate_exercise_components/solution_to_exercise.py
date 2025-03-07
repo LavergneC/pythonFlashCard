@@ -48,7 +48,7 @@ class SolutionToExercice:
         reading = False
         output = ""
         for line in file_content.split("\n"):
-            if "def test_" in line or "def _test" in line:
+            if "def test_" in line or "def _test" in line or line.startswith("@patch"):
                 reading = True
 
             if reading:

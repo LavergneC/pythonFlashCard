@@ -112,3 +112,13 @@ def test_get_docstring() -> None:
         ste._get_docstring(doc_string_in_content)
         == '      """   \n the doc string line 1 \n the doc string line 2 \n   """ '
     )
+
+
+def test_patch_at_start_of_test() -> None:
+    ste = SolutionToExercice()
+
+    exercise_content = ""
+    with open(TEST_SOLUTION_TO_EXERCISE_RESSOUCES.WITH_PATCH) as solution_file:
+        exercise_content = ste.solution_to_exercice(solution_file.read())
+
+    assert "@patch" in exercise_content
