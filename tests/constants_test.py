@@ -19,7 +19,7 @@ class TEST_RESSOURCE_STORAGE:
     DB_PATH = PATH + "/test_ressource_storage_db.csv"
     DB_PATH_COPY = PATH + "/test_ressource_storage_db_copy.csv"
     db_PATH_NEW_DB = PATH + "/test_ressource_storage_db_new.csv"
-    RESSOURCE_3_FROM = PATH + "/test_dir/" + "bad_located_ressource.py"
+    RESSOURCE_3_FROM = PATH + "/test_dir/" + "test_ressource_20.py"
     RESSOURCE_3_TO = PATH + "/" + "test_ressource_30.py"
 
 

@@ -1,7 +1,6 @@
 import csv
 import os
 from datetime import datetime, timedelta
-from os.path import isfile, join
 
 from main.generate_exercise_components.ressource_picker import RessourceData
 
@@ -45,11 +44,14 @@ class RessouceStorage:
             writer.writerows(ressources)
 
     def _get_ressource_filenames(self) -> list[str]:
-        return [
-            filename
-            for filename in os.listdir(self.dir_path)
-            if isfile(join(self.dir_path, filename)) and filename.endswith(".py")
-        ]
+        ressource_filenames = []
+
+        for _, _, files in os.walk(self.dir_path):
+            ressource_filenames += [
+                filename for filename in files if filename.endswith(".py")
+            ]
+
+        return ressource_filenames
 
     def _get_or_create_ressource_data(
         self, filename: str, ressource_list: list[RessourceData]

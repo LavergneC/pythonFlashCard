@@ -61,7 +61,7 @@ def test_set_ressource(csv_db_file) -> None:
     assert ressources[0].last_seen_date == datetime.date(year=2015, month=5, day=15)
 
 
-def test_db_initialization() -> None:
+def test_db_initialization_from_files() -> None:
     # Make sure there is no db
     if os.path.exists(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB):
         os.remove(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB)
