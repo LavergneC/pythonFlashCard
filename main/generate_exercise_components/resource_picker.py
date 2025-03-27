@@ -1,19 +1,19 @@
 import datetime
 from collections import namedtuple
 
-RessourceData = namedtuple("RessourceData", ["filename", "score", "last_seen_date"])
+ResourceData = namedtuple("ResourceData", ["filename", "score", "last_seen_date"])
 
 
-class RessourcePicker:
-    def __init__(self, ressources: list[RessourceData]) -> None:
-        self.ressources = ressources
+class ResourcePicker:
+    def __init__(self, resources: list[ResourceData]) -> None:
+        self.resources = resources
         self._waiting_result = False
 
     def pick(self) -> str | None:
         """
-        Returns a ressource name
+        Returns a resource name
         """
-        self._sort_ressources()
+        self._sort_resources()
 
         if self._waiting_result:
             msg = "Could not pick result, need to set_result before"
@@ -24,10 +24,10 @@ class RessourcePicker:
         today = datetime.datetime.now().date()
         self._picked_index = -1
 
-        for index, ressource in enumerate(self.ressources):
-            if ressource.last_seen_date != today:
+        for index, resource in enumerate(self.resources):
+            if resource.last_seen_date != today:
                 self._picked_index = index
-                return ressource.filename
+                return resource.filename
 
         return None
 
@@ -38,23 +38,23 @@ class RessourcePicker:
 
         self._waiting_result = False
 
-        new_score = self.ressources[self._picked_index].score
+        new_score = self.resources[self._picked_index].score
         if success:
             new_score += min(new_score * -0.29 + 30, 100)
         else:
             new_score /= 2
 
         print(
-            f"Score update on {self.ressources[self._picked_index].filename}: "
-            f"{self.ressources[self._picked_index].score} -> {new_score}"
+            f"Score update on {self.resources[self._picked_index].filename}: "
+            f"{self.resources[self._picked_index].score} -> {new_score}"
         )
-        self.ressources[self._picked_index] = RessourceData(
-            filename=self.ressources[self._picked_index].filename,
+        self.resources[self._picked_index] = ResourceData(
+            filename=self.resources[self._picked_index].filename,
             score=new_score,
             last_seen_date=datetime.datetime.now().date(),
         )
 
-    def _sort_ressources(self):
-        self.ressources = sorted(
-            self.ressources, key=lambda ressourceData: ressourceData.score
+    def _sort_resources(self):
+        self.resources = sorted(
+            self.resources, key=lambda resourceData: resourceData.score
         )

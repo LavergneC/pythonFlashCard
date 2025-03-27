@@ -1,18 +1,18 @@
 from main.constants import KEEP_LINE_TAG, STATIC_TEXTS
-from main.generate_exercise_components.solution_to_exercise import SolutionToExercice
+from main.generate_exercise_components.solution_to_exercise import SolutionToExercise
 from tests.constants_test import (
     TEST_SOLUTION_TO_EXERCISE_CLASS,
-    TEST_SOLUTION_TO_EXERCISE_RESSOUCES,
+    TEST_SOLUTION_TO_EXERCISE_RESOURCES,
     TEST_SOLUTION_TO_EXERCISE_SIMPLE,
 )
 
 
 def test_very_simple_exercise():
-    ste = SolutionToExercice()
+    ste = SolutionToExercise()
 
     exercise_content = ""
-    with open(TEST_SOLUTION_TO_EXERCISE_RESSOUCES.VERY_SIMPLE) as solution_file:
-        exercise_content = ste.solution_to_exercice(solution_file.read())
+    with open(TEST_SOLUTION_TO_EXERCISE_RESOURCES.VERY_SIMPLE) as solution_file:
+        exercise_content = ste.solution_to_exercise(solution_file.read())
 
     # "exercise.py" is a modified version of 'solution.py'
     #   - Only some import are present
@@ -25,8 +25,8 @@ def test_very_simple_exercise():
 
     #   - main function definition line was kept
     assert TEST_SOLUTION_TO_EXERCISE_SIMPLE.MAIN_FUNCTION_DEFINITION in exercise_content
-    #   - main function doctring was kept
-    assert TEST_SOLUTION_TO_EXERCISE_SIMPLE.MAIN_FUNCTION_DOCTSTRING in exercise_content
+    #   - main function docstring was kept
+    assert TEST_SOLUTION_TO_EXERCISE_SIMPLE.MAIN_FUNCTION_DOCSTRING in exercise_content
     #   - tests were kept
     assert TEST_SOLUTION_TO_EXERCISE_SIMPLE.TESTS in exercise_content
     #   - Some context texts were added at several places
@@ -35,25 +35,25 @@ def test_very_simple_exercise():
 
 
 def test_content_with_no_import():
-    ste = SolutionToExercice()
+    ste = SolutionToExercise()
 
     exercise_content = ""
-    with open(TEST_SOLUTION_TO_EXERCISE_RESSOUCES.NO_IMPORT) as solution_file:
-        exercise_content = ste.solution_to_exercice(solution_file.read())
+    with open(TEST_SOLUTION_TO_EXERCISE_RESOURCES.NO_IMPORT) as solution_file:
+        exercise_content = ste.solution_to_exercise(solution_file.read())
 
         first_line = exercise_content.split("\n")[0]
         assert (
             first_line
-            == TEST_SOLUTION_TO_EXERCISE_RESSOUCES.TEST_NO_IMPORT_RESSOURCE_DEF
+            == TEST_SOLUTION_TO_EXERCISE_RESOURCES.TEST_NO_IMPORT_RESOURCE_DEF
         )
 
 
-def test_content_class_exercice():
-    ste = SolutionToExercice()
+def test_content_class_exercise():
+    ste = SolutionToExercise()
 
     file_content = ""
-    with open(TEST_SOLUTION_TO_EXERCISE_RESSOUCES.CLASS) as solution_file:
-        file_content = ste.solution_to_exercice(solution_file.read())
+    with open(TEST_SOLUTION_TO_EXERCISE_RESOURCES.CLASS) as solution_file:
+        file_content = ste.solution_to_exercise(solution_file.read())
 
     # correct import is kept
     assert "import random" in file_content
@@ -68,7 +68,7 @@ def test_content_class_exercice():
     assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_1_DEFINITION in file_content
     assert TEST_SOLUTION_TO_EXERCISE_CLASS.FUNCTION_2_DEFINITION in file_content
 
-    # Function bodies aren't keept
+    # Function bodies aren't kept
     assert "defaultdict" not in file_content
     assert "append" not in file_content
     assert "self.temperatures.get(day, [])" not in file_content
@@ -90,11 +90,11 @@ def test_content_class_exercice():
 
 
 def test_get_docstring() -> None:
-    ste = SolutionToExercice()
+    ste = SolutionToExercise()
 
     no_doc_string_content = [
-        "bv couibhvcbdfu gbhcvkbffdiobv vb",
-        'dsflk kn "jiohbui" ezajfdsf',
+        "is simply dummy text of the printing and",
+        "typesetting industry. Lorem Ipsum has been the",
     ]
     assert ste._get_docstring(no_doc_string_content) == ""
 
@@ -105,7 +105,7 @@ def test_get_docstring() -> None:
         " the doc string line 1 ",
         " the doc string line 2 ",
         '   """ ',
-        "bla ble lf  dgjhesdfg lkfdgh",
+        "It was popularized in the 1960s with the release",
     ]
 
     assert (
@@ -115,10 +115,10 @@ def test_get_docstring() -> None:
 
 
 def test_patch_at_start_of_test() -> None:
-    ste = SolutionToExercice()
+    ste = SolutionToExercise()
 
     exercise_content = ""
-    with open(TEST_SOLUTION_TO_EXERCISE_RESSOUCES.WITH_PATCH) as solution_file:
-        exercise_content = ste.solution_to_exercice(solution_file.read())
+    with open(TEST_SOLUTION_TO_EXERCISE_RESOURCES.WITH_PATCH) as solution_file:
+        exercise_content = ste.solution_to_exercise(solution_file.read())
 
     assert "@patch" in exercise_content

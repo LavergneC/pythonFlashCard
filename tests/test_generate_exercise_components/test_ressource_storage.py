@@ -4,127 +4,127 @@ import shutil
 
 import pytest
 
-from main.generate_exercise_components.ressource_picker import RessourceData
-from main.generate_exercise_components.ressource_storage import RessouceStorage
-from tests.constants_test import TEST_RESSOURCE_STORAGE
+from main.generate_exercise_components.resource_picker import ResourceData
+from main.generate_exercise_components.resource_storage import RESOURCEStorage
+from tests.constants_test import TEST_RESOURCE_STORAGE
 
 
 @pytest.fixture
 def csv_db_file():
-    shutil.copyfile(TEST_RESSOURCE_STORAGE.DB_PATH, TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
-    yield TEST_RESSOURCE_STORAGE.DB_PATH_COPY
+    shutil.copyfile(TEST_RESOURCE_STORAGE.DB_PATH, TEST_RESOURCE_STORAGE.DB_PATH_COPY)
+    yield TEST_RESOURCE_STORAGE.DB_PATH_COPY
 
     # tear down
-    os.remove(TEST_RESSOURCE_STORAGE.DB_PATH_COPY)
+    os.remove(TEST_RESOURCE_STORAGE.DB_PATH_COPY)
 
 
-def test_get_ressource_from_csv(csv_db_file) -> None:
-    rs = RessouceStorage(
-        ressource_csv_path=csv_db_file,
-        ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
+def test_get_resource_from_csv(csv_db_file) -> None:
+    rs = RESOURCEStorage(
+        resource_csv_path=csv_db_file,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
 
-    ressources = rs.read()
-    assert len(ressources) == 2
-    assert ressources[0].filename == "test_ressource_10.py"
-    assert ressources[0].score == 5
-    assert ressources[0].last_seen_date == datetime.date(year=2025, month=1, day=15)
+    resources = rs.read()
+    assert len(resources) == 2
+    assert resources[0].filename == "test_resource_10.py"
+    assert resources[0].score == 5
+    assert resources[0].last_seen_date == datetime.date(year=2025, month=1, day=15)
 
-    assert ressources[1].filename == "test_ressource_20.py"
-    assert ressources[1].score == 88
-    assert ressources[1].last_seen_date == datetime.date(year=2024, month=5, day=23)
+    assert resources[1].filename == "test_resource_20.py"
+    assert resources[1].score == 88
+    assert resources[1].last_seen_date == datetime.date(year=2024, month=5, day=23)
 
 
-def test_set_ressource(csv_db_file) -> None:
-    rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
-        ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
+def test_set_resource(csv_db_file) -> None:
+    rs = RESOURCEStorage(
+        resource_csv_path=TEST_RESOURCE_STORAGE.DB_PATH_COPY,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
-    ressources = rs.read()
+    resources = rs.read()
 
-    assert ressources[0].score != 123
-    assert ressources[0].last_seen_date != datetime.date(year=2015, month=5, day=15)
+    assert resources[0].score != 123
+    assert resources[0].last_seen_date != datetime.date(year=2015, month=5, day=15)
 
-    ressources[0] = RessourceData(
-        filename=ressources[0].filename,
+    resources[0] = ResourceData(
+        filename=resources[0].filename,
         score=123,
         last_seen_date=datetime.date(year=2015, month=5, day=15),
     )
-    rs.write(ressources=ressources)
+    rs.write(resources=resources)
 
-    rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.DB_PATH_COPY,
-        ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
+    rs = RESOURCEStorage(
+        resource_csv_path=TEST_RESOURCE_STORAGE.DB_PATH_COPY,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
-    ressources = rs.read()
-    assert ressources[0].score == 123
-    assert ressources[0].last_seen_date == datetime.date(year=2015, month=5, day=15)
+    resources = rs.read()
+    assert resources[0].score == 123
+    assert resources[0].last_seen_date == datetime.date(year=2015, month=5, day=15)
 
 
 def test_db_initialization_from_files() -> None:
     # Make sure there is no db
-    if os.path.exists(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB):
-        os.remove(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB)
+    if os.path.exists(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB):
+        os.remove(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB)
 
-    rs = RessouceStorage(
-        ressource_csv_path=TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB,
-        ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
+    rs = RESOURCEStorage(
+        resource_csv_path=TEST_RESOURCE_STORAGE.db_PATH_NEW_DB,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
 
-    ressources = rs.read()
+    resources = rs.read()
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).date()
 
     assert (
-        RessourceData(
-            filename=TEST_RESSOURCE_STORAGE.RESSOURCE_1,
+        ResourceData(
+            filename=TEST_RESOURCE_STORAGE.RESOURCE_1,
             score=0,
             last_seen_date=yesterday,
         )
-        in ressources
+        in resources
     )
 
     assert (
-        RessourceData(
-            filename=TEST_RESSOURCE_STORAGE.RESSOURCE_2,
+        ResourceData(
+            filename=TEST_RESOURCE_STORAGE.RESOURCE_2,
             score=0,
             last_seen_date=yesterday,
         )
-        in ressources
+        in resources
     )
 
-    assert len(ressources) == 2
-    assert os.path.exists(TEST_RESSOURCE_STORAGE.db_PATH_NEW_DB)
+    assert len(resources) == 2
+    assert os.path.exists(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB)
 
 
 @pytest.fixture
-def third_ressource():
+def third_resource():
     shutil.copyfile(
-        TEST_RESSOURCE_STORAGE.RESSOURCE_3_FROM, TEST_RESSOURCE_STORAGE.RESSOURCE_3_TO
+        TEST_RESOURCE_STORAGE.RESOURCE_3_FROM, TEST_RESOURCE_STORAGE.RESOURCE_3_TO
     )
-    yield TEST_RESSOURCE_STORAGE.RESSOURCE_3
+    yield TEST_RESOURCE_STORAGE.RESOURCE_3
 
     # Teardown
-    os.remove(TEST_RESSOURCE_STORAGE.RESSOURCE_3_TO)
+    os.remove(TEST_RESOURCE_STORAGE.RESOURCE_3_TO)
 
 
-def test_adding_a_new_ressource(csv_db_file, third_ressource) -> None:
-    rs = RessouceStorage(
-        ressource_csv_path=csv_db_file,
-        ressource_directory_path=TEST_RESSOURCE_STORAGE.PATH,
+def test_adding_a_new_resource(csv_db_file, third_resource) -> None:
+    rs = RESOURCEStorage(
+        resource_csv_path=csv_db_file,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
 
-    ressources = rs.read()
+    resources = rs.read()
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).date()
 
     assert (
-        RessourceData(
-            filename=third_ressource,
+        ResourceData(
+            filename=third_resource,
             score=0,
             last_seen_date=yesterday,
         )
-        in ressources
+        in resources
     )
 
-    assert len(ressources) == 3
+    assert len(resources) == 3
 
     # TODO make the test_db.csv match the dir content

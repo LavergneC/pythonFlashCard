@@ -9,17 +9,17 @@ class STATIC_TEXTS:
     )
 
     CLASS_USER_CODE = """\
-    ############################################
-    # Fill all the previous function defitions #
-    # in order to make the test pass.          #
-    # Feel free to add some private function   #
-    ############################################
+    ##############################################
+    # Fill all the previous function definitions #
+    # in order to make the test pass.            #
+    # Feel free to add some private function     #
+    ##############################################
 """
     PYTEST = "# Test your solution by running '$ pytest'"
 
 
 KEEP_LINE_TAG = "# fcPython:keep line"
 
-RESSOURCES_PATH = "main/resources"
-RESSOURCE_DB_NAME = "db.csv"
-RESSOURCE_DB_PATH = RESSOURCE_DB_NAME
+RESOURCES_PATH = "main/resources"
+RESOURCE_DB_NAME = "db.csv"
+RESOURCE_DB_PATH = RESOURCE_DB_NAME
