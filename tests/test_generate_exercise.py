@@ -42,12 +42,14 @@ def test_never_twice_the_same_resource_per_day():
     )
 
     calls_exercises_names = []
-    while len(calls_exercises_names) < 10:
-        pfc.generate_exercise()
+
+    # generate_exercise will returns False once all exercise are picked
+    while pfc.generate_exercise():
         with open("solution.py") as solution_file:
             calls_exercises_names.append(solution_file.read().split("\n")[0])
         pfc.set_exercise_result(True)
 
+    assert len(calls_exercises_names) == 3
     assert calls_exercises_names.count("# test_ressource_1.py") == 1
 
     # Ré-init : The app is relaunched but it's the same day
@@ -57,10 +59,9 @@ def test_never_twice_the_same_resource_per_day():
     )
 
     calls_exercises_names = []
-    while len(calls_exercises_names) < 10:
-        pfc.generate_exercise()
+    while pfc.generate_exercise():
         with open("solution.py") as solution_file:
             calls_exercises_names.append(solution_file.read().split("\n")[0])
         pfc.set_exercise_result(True)
 
-    assert "# test_ressource_1.py" not in calls_exercises_names
+    assert len(calls_exercises_names) == 0
