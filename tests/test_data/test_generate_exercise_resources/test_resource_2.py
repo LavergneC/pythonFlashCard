@@ -1,4 +1,4 @@
-# test_ressource_1.py
+# test_resource_2.py
 import pathlib  # fcPython:keep line
 import random
 import string

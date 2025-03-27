@@ -2,9 +2,9 @@ from main.constants import STATIC_TEXTS
 
 
 class TEST_GENERATE_EXERCISE:
-    RESOURCE_DIR = "tests/test_data/test_generate_exercise_ressources"
+    RESOURCE_DIR = "tests/test_data/test_generate_exercise_resources"
     SOLUTION_PATH = (
-        "tests/test_data/test_generate_exercise_ressources/test_ressource_3.py"
+        "tests/test_data/test_generate_exercise_resources/test_resource_3.py"
     )
     DB_PATH = RESOURCE_DIR + "/test_generate_exercise_db.csv"
     DB_PATH_COPY = RESOURCE_DIR + "/test_generate_exercise_copy_db.csv"
@@ -12,22 +12,22 @@ class TEST_GENERATE_EXERCISE:
 
 
 class TEST_RESOURCE_STORAGE:
-    PATH = "tests/test_data/test_ressource_storage"
+    PATH = "tests/test_data/test_resource_storage"
     RESOURCE_1 = "test_resource_10.py"
     RESOURCE_2 = "test_resource_20.py"
-    RESOURCE_3 = "test_ressource_30.py"
-    DB_PATH = PATH + "/test_ressource_storage_db.csv"
-    DB_PATH_COPY = PATH + "/test_ressource_storage_db_copy.csv"
-    db_PATH_NEW_DB = PATH + "/test_ressource_storage_db_new.csv"
+    RESOURCE_3 = "test_resource_30.py"
+    DB_PATH = PATH + "/test_resource_storage_db.csv"
+    DB_PATH_COPY = PATH + "/test_resource_storage_db_copy.csv"
+    db_PATH_NEW_DB = PATH + "/test_resource_storage_db_new.csv"
     RESOURCE_3_FROM = PATH + "/test_dir/" + "test_resource_20.py"
-    RESOURCE_3_TO = PATH + "/" + "test_ressource_30.py"
+    RESOURCE_3_TO = PATH + "/" + "test_resource_30.py"
 
 
 class TEST_SOLUTION_TO_EXERCISE_RESOURCES:
     PATH = "tests/test_data/test_solution_to_exercise"
     VERY_SIMPLE = PATH + "/" + "very_simple_exercise.py"
     NO_IMPORT = PATH + "/" + "no_import_left.py"
-    CLASS = PATH + "/" + "class_ressource.py"
+    CLASS = PATH + "/" + "class_resource.py"
     TEST_NO_IMPORT_RESOURCE_DEF = "def dishes_from_ingredients(ingredients: list[str], meal_size: int) -> list[tuple]:"
     WITH_PATCH = PATH + "/" + "simple_with_patch_test.py"
 

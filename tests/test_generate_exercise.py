@@ -50,7 +50,7 @@ def test_never_twice_the_same_resource_per_day():
         pfc.set_exercise_result(True)
 
     assert len(calls_exercises_names) == 3
-    assert calls_exercises_names.count("# test_ressource_1.py") == 1
+    assert calls_exercises_names.count("# test_resource_1.py") == 1
 
     # Ré-init : The app is relaunched but it's the same day
     pfc = PythonFlashCards(

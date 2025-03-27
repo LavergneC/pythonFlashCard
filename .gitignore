@@ -174,4 +174,4 @@ cython_debug/
 solution.py
 exercise.py
 db.csv
-test_ressource_storage_db_new.csv
+test_resource_storage_db_new.csv
