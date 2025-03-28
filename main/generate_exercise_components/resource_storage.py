@@ -46,12 +46,9 @@ class RESOURCEStorage:
     def _get_resource_filenames(self) -> list[str]:
         resource_filenames = []
 
+        # For each directory
         for path, _, files in os.walk(self.dir_path):
-            resource_filenames += [
-                self._get_filepath(path, filename)
-                for filename in files
-                if filename.endswith(".py")
-            ]
+            resource_filenames += self._get_filepaths(path=path, files=files)
 
         return resource_filenames
 
@@ -65,8 +62,13 @@ class RESOURCEStorage:
         yesterday = (datetime.now() - timedelta(days=1)).date()
         return ResourceData(filename=filename, score=0, last_seen_date=yesterday)
 
-    def _get_filepath(self, path: str, filename: str) -> str:
-        filepath = path + "/" + filename
-        filepath = filepath.replace(self.dir_path, "")
-        filepath = filepath.replace("/", "", 1)
-        return filepath
+    def _get_filepaths(self, path: str, files: list) -> list[str]:
+        files = [filename for filename in files if filename.endswith(".py")]
+
+        filepaths = []
+        for filename in files:
+            filepath = path + "/" + filename
+            filepath = filepath.replace(self.dir_path, "").replace("/", "", 1)
+            filepaths.append(filepath)
+
+        return filepaths
