@@ -7,22 +7,24 @@ class TEST_GENERATE_EXERCISE:
         "tests/test_data/test_generate_exercise_resources/test_pre_written"
     )
     SOLUTION_PATH = (
-        "tests/test_data/test_generate_exercise_resources/common/test_resource_3.py"
+        "tests/test_data/test_generate_exercise_resources/common/test_resource_2.py"
     )
     DB_PATH = RESOURCE_DIR + "/test_generate_exercise_db.csv"
     DB_PATH_COPY = RESOURCE_DIR + "/test_generate_exercise_copy_db.csv"
-    db_PATH_NEW_DB = RESOURCE_DIR + "/test_generate_exercise_db_new.csv"
+    DB_PATH_NEW_DB = RESOURCE_DIR + "/test_generate_exercise_db_new.csv"
     DB_TEST_PRE_WRITTEN = "tests/test_data/test_generate_exercise_resources/test_pre_written/test_pre_written.csv"
 
 
 class TEST_RESOURCE_STORAGE:
     PATH = "tests/test_data/test_resource_storage"
     RESOURCE_1 = "test_resource_10.py"
-    RESOURCE_2 = "test_resource_20.py"
+    RESOURCE_2 = "test_dir/test_resource_20.py"
     RESOURCE_3 = "test_resource_30.py"
     DB_PATH = PATH + "/test_resource_storage_db.csv"
     DB_PATH_COPY = PATH + "/test_resource_storage_db_copy.csv"
     db_PATH_NEW_DB = PATH + "/test_resource_storage_db_new.csv"
+    EMPTY_DB_PATH = PATH + "/test_resource_storage_db_empty.csv"
+
     RESOURCE_3_FROM = PATH + "/test_dir/" + "test_resource_20.py"
     RESOURCE_3_TO = PATH + "/" + "test_resource_30.py"
 

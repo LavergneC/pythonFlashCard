@@ -18,6 +18,16 @@ def csv_db_file():
     os.remove(TEST_RESOURCE_STORAGE.DB_PATH_COPY)
 
 
+@pytest.fixture
+def empty_db_file():
+    if os.path.exists(TEST_RESOURCE_STORAGE.EMPTY_DB_PATH):
+        os.remove(TEST_RESOURCE_STORAGE.EMPTY_DB_PATH)
+
+    yield TEST_RESOURCE_STORAGE.EMPTY_DB_PATH
+
+    os.remove(TEST_RESOURCE_STORAGE.EMPTY_DB_PATH)
+
+
 def test_get_resource_from_csv(csv_db_file) -> None:
     rs = RESOURCEStorage(
         resource_csv_path=csv_db_file,
@@ -30,7 +40,7 @@ def test_get_resource_from_csv(csv_db_file) -> None:
     assert resources[0].score == 5
     assert resources[0].last_seen_date == datetime.date(year=2025, month=1, day=15)
 
-    assert resources[1].filename == "test_resource_20.py"
+    assert resources[1].filename == "test_dir/test_resource_20.py"
     assert resources[1].score == 88
     assert resources[1].last_seen_date == datetime.date(year=2024, month=5, day=23)
 
@@ -128,3 +138,16 @@ def test_adding_a_new_resource(csv_db_file, third_resource) -> None:
     assert len(resources) == 3
 
     # TODO make the test_db.csv match the dir content
+
+
+def test_get_resource_filenames(empty_db_file):
+    rs = RESOURCEStorage(
+        resource_csv_path=empty_db_file,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
+    )
+
+    resources_paths = [data.filename for data in rs.read()]
+
+    assert "test_resource_10.py" in resources_paths
+    assert "test_dir/test_resource_20.py" in resources_paths
+    assert len(resources_paths) == 2

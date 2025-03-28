@@ -46,9 +46,11 @@ class RESOURCEStorage:
     def _get_resource_filenames(self) -> list[str]:
         resource_filenames = []
 
-        for _, _, files in os.walk(self.dir_path):
+        for path, _, files in os.walk(self.dir_path):
             resource_filenames += [
-                filename for filename in files if filename.endswith(".py")
+                self._get_filepath(path, filename)
+                for filename in files
+                if filename.endswith(".py")
             ]
 
         return resource_filenames
@@ -56,14 +58,15 @@ class RESOURCEStorage:
     def _get_or_create_resource_data(
         self, filename: str, resource_list: list[ResourceData]
     ) -> ResourceData:
-        """
-        This function scan the resource_list in order to file a resource with a
-        matching resource_filename and return it's score.
-        Return 0 if the resource does not exists
-        """
         for resource in resource_list:
             if resource.filename == filename:
                 return resource
 
         yesterday = (datetime.now() - timedelta(days=1)).date()
         return ResourceData(filename=filename, score=0, last_seen_date=yesterday)
+
+    def _get_filepath(self, path: str, filename: str) -> str:
+        filepath = path + "/" + filename
+        filepath = filepath.replace(self.dir_path, "")
+        filepath = filepath.replace("/", "", 1)
+        return filepath
