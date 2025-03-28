@@ -1,3 +1,4 @@
+import os
 import shutil
 import sys
 
@@ -29,15 +30,19 @@ class PythonFlashCards:
 
         shutil.copyfile(solution_file_path, "solution.py")
 
+        if os.path.exists(solution_file_path + ".ex"):
+            shutil.copyfile(solution_file_path + ".ex", "exercise.py")
+            return True
+
         solution_content = ""
-        with open(solution_file_path) as exercise_file:
-            solution_content = exercise_file.read()
+        with open(solution_file_path) as solution_file:
+            solution_content = solution_file.read()
 
         solution_to_ex = SolutionToExercise()
         exercise_content = solution_to_ex.solution_to_exercise(solution_content)
 
-        with open("exercise.py", mode="w") as exercise_file:
-            exercise_file.write(exercise_content)
+        with open("exercise.py", mode="w") as solution_file:
+            solution_file.write(exercise_content)
 
         return True
 

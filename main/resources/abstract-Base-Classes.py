@@ -2,16 +2,17 @@
 # from https://realpython.com/lessons/using-abstract-base-classes/
 
 from abc import ABC, abstractmethod
-from io import StringIO  # fcPython:keep line
-from unittest.mock import patch  # fcPython:keep line
+from io import StringIO
+from unittest.mock import patch
 
+DEFAULT_WATER_LEVEL = 0
 TROPICAL_PLANTS_DRY_LIMIT = 80
-PERENNIAL_PLANTS_DEY_LIMIT = 20
+PERENNIAL_PLANTS_DRY_LIMIT = 20
 
 
 class Plant(ABC):
     def __init__(self):
-        self.water_level = 0
+        self.water_level = DEFAULT_WATER_LEVEL
 
     @abstractmethod
     def is_dry(self) -> bool:
@@ -33,7 +34,7 @@ class TropicalPlant(Plant):
 
 class PerennialPlant(Plant):
     def is_dry(self) -> bool:
-        return self.water_level < PERENNIAL_PLANTS_DEY_LIMIT
+        return self.water_level < PERENNIAL_PLANTS_DRY_LIMIT
 
     def water(self, water_quantity: int):
         print("Putting water under the perennial plant")

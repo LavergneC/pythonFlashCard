@@ -65,3 +65,20 @@ def test_never_twice_the_same_resource_per_day():
         pfc.set_exercise_result(True)
 
     assert len(calls_exercises_names) == 0
+
+
+def test_get_exercise_from_pre_written_file() -> None:
+    pfc = PythonFlashCards(
+        resource_csv_path=TEST_GENERATE_EXERCISE.DB_TEST_PRE_WRITTEN,
+        resource_directory_path=TEST_GENERATE_EXERCISE.RESOURCE_DIR_PRE_WRITTEN,
+    )
+
+    pfc.generate_exercise()
+
+    with open("exercise.py") as exercise_file:
+        assert "# solution_with_pre_written_exercise.py.ex" in exercise_file.read()
+
+    with open("solution.py") as solution_file:
+        content = solution_file.read()
+        assert "# solution_with_pre_written_exercise.py" in content
+        assert "# solution_with_pre_written_exercise.py.ex" not in content

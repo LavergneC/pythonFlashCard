@@ -2,13 +2,17 @@ from main.constants import STATIC_TEXTS
 
 
 class TEST_GENERATE_EXERCISE:
-    RESOURCE_DIR = "tests/test_data/test_generate_exercise_resources"
+    RESOURCE_DIR = "tests/test_data/test_generate_exercise_resources/common"
+    RESOURCE_DIR_PRE_WRITTEN = (
+        "tests/test_data/test_generate_exercise_resources/test_pre_written"
+    )
     SOLUTION_PATH = (
-        "tests/test_data/test_generate_exercise_resources/test_resource_3.py"
+        "tests/test_data/test_generate_exercise_resources/common/test_resource_3.py"
     )
     DB_PATH = RESOURCE_DIR + "/test_generate_exercise_db.csv"
     DB_PATH_COPY = RESOURCE_DIR + "/test_generate_exercise_copy_db.csv"
     db_PATH_NEW_DB = RESOURCE_DIR + "/test_generate_exercise_db_new.csv"
+    DB_TEST_PRE_WRITTEN = "tests/test_data/test_generate_exercise_resources/test_pre_written/test_pre_written.csv"
 
 
 class TEST_RESOURCE_STORAGE:
