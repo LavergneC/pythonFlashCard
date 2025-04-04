@@ -2,10 +2,10 @@ import csv
 import os
 from datetime import datetime, timedelta
 
-from main.generate_exercise_components.resource_picker import ResourceData
+from main.resources_management.resource_picker import ResourceData
 
 
-class RESOURCEStorage:
+class ResourceStorage:
     def __init__(self, resource_csv_path: str, resource_directory_path: str) -> None:
         self.dir_path = resource_directory_path
         self.resource_csv_path = resource_csv_path

@@ -4,8 +4,8 @@ import shutil
 
 import pytest
 
-from main.generate_exercise_components.resource_picker import ResourceData
-from main.generate_exercise_components.resource_storage import RESOURCEStorage
+from main.resources_management.resource_picker import ResourceData
+from main.resources_management.resource_storage import ResourceStorage
 from tests.constants_test import TEST_RESOURCE_STORAGE
 
 
@@ -29,7 +29,7 @@ def empty_db_file():
 
 
 def test_get_resource_from_csv(csv_db_file) -> None:
-    rs = RESOURCEStorage(
+    rs = ResourceStorage(
         resource_csv_path=csv_db_file,
         resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
@@ -46,7 +46,7 @@ def test_get_resource_from_csv(csv_db_file) -> None:
 
 
 def test_set_resource(csv_db_file) -> None:
-    rs = RESOURCEStorage(
+    rs = ResourceStorage(
         resource_csv_path=TEST_RESOURCE_STORAGE.DB_PATH_COPY,
         resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
@@ -62,7 +62,7 @@ def test_set_resource(csv_db_file) -> None:
     )
     rs.write(resources=resources)
 
-    rs = RESOURCEStorage(
+    rs = ResourceStorage(
         resource_csv_path=TEST_RESOURCE_STORAGE.DB_PATH_COPY,
         resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
@@ -76,7 +76,7 @@ def test_db_initialization_from_files() -> None:
     if os.path.exists(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB):
         os.remove(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB)
 
-    rs = RESOURCEStorage(
+    rs = ResourceStorage(
         resource_csv_path=TEST_RESOURCE_STORAGE.db_PATH_NEW_DB,
         resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
@@ -118,7 +118,7 @@ def third_resource():
 
 
 def test_adding_a_new_resource(csv_db_file, third_resource) -> None:
-    rs = RESOURCEStorage(
+    rs = ResourceStorage(
         resource_csv_path=csv_db_file,
         resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )
@@ -141,7 +141,7 @@ def test_adding_a_new_resource(csv_db_file, third_resource) -> None:
 
 
 def test_get_resource_filenames(empty_db_file):
-    rs = RESOURCEStorage(
+    rs = ResourceStorage(
         resource_csv_path=empty_db_file,
         resource_directory_path=TEST_RESOURCE_STORAGE.PATH,
     )

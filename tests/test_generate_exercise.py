@@ -2,14 +2,14 @@ import os
 import shutil
 from os import listdir
 
-from main.generate_exercise import PythonFlashCards
+from main.python_flash_cards import PythonFlashCards
 from tests.constants_test import (
     TEST_GENERATE_EXERCISE,
     TEST_RESOURCE_STORAGE,
 )
 
 
-def test_generate_exercise():
+def test_get_exercise():
     # The user launch the application #TODO more real
     if os.path.exists(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB):
         os.remove(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB)
@@ -18,7 +18,7 @@ def test_generate_exercise():
         resource_csv_path=TEST_RESOURCE_STORAGE.db_PATH_NEW_DB,
         resource_directory_path=TEST_GENERATE_EXERCISE.RESOURCE_DIR,
     )
-    pfc.generate_exercise()
+    pfc.get_exercise()
 
     # A new file named "solution.py" appears in the working dir
     assert "solution.py" in listdir("./")
@@ -43,8 +43,8 @@ def test_never_twice_the_same_resource_per_day():
 
     calls_exercises_names = []
 
-    # generate_exercise will returns False once all exercise are picked
-    while pfc.generate_exercise():
+    # get_exercise will returns False once all exercise are picked
+    while pfc.get_exercise():
         with open("solution.py") as solution_file:
             calls_exercises_names.append(solution_file.read().split("\n")[0])
         pfc.set_exercise_result(True)
@@ -59,7 +59,7 @@ def test_never_twice_the_same_resource_per_day():
     )
 
     calls_exercises_names = []
-    while pfc.generate_exercise():
+    while pfc.get_exercise():
         with open("solution.py") as solution_file:
             calls_exercises_names.append(solution_file.read().split("\n")[0])
         pfc.set_exercise_result(True)
@@ -73,7 +73,7 @@ def test_get_exercise_from_pre_written_file() -> None:
         resource_directory_path=TEST_GENERATE_EXERCISE.RESOURCE_DIR_PRE_WRITTEN,
     )
 
-    pfc.generate_exercise()
+    pfc.get_exercise()
 
     with open("exercise.py") as exercise_file:
         assert "# solution_with_pre_written_exercise.py.ex" in exercise_file.read()

@@ -1,11 +1,10 @@
-import os
-import shutil
 import sys
 
 from main.constants import RESOURCE_DB_PATH, RESOURCES_PATH
-from main.generate_exercise_components.resource_picker import ResourcePicker
-from main.generate_exercise_components.resource_storage import RESOURCEStorage
-from main.generate_exercise_components.solution_to_exercise import SolutionToExercise
+from main.exercise_production import generate_exercise
+from main.exercise_production.solution_to_exercise import SolutionToExercise
+from main.resources_management.resource_picker import ResourcePicker
+from main.resources_management.resource_storage import ResourceStorage
 
 
 class PythonFlashCards:
@@ -15,36 +14,21 @@ class PythonFlashCards:
         resource_directory_path: str = RESOURCES_PATH,
     ) -> None:
         self.resource_directory_path = resource_directory_path
-        self.resource_storage = RESOURCEStorage(
+        self.resource_storage = ResourceStorage(
             resource_csv_path=resource_csv_path,
             resource_directory_path=resource_directory_path,
         )
         self.resource_picker = ResourcePicker(resources=self.resource_storage.read())
 
-    def generate_exercise(self) -> bool:  # TODO test return
+    def get_exercise(self) -> bool:
         solution_file_name = self.resource_picker.pick()
         if solution_file_name is None:
             return False
 
-        solution_file_path = self.resource_directory_path + "/" + solution_file_name
-
-        shutil.copyfile(solution_file_path, "solution.py")
-
-        if os.path.exists(solution_file_path + ".ex"):
-            shutil.copyfile(solution_file_path + ".ex", "exercise.py")
-            return True
-
-        solution_content = ""
-        with open(solution_file_path) as solution_file:
-            solution_content = solution_file.read()
-
-        solution_to_ex = SolutionToExercise()
-        exercise_content = solution_to_ex.solution_to_exercise(solution_content)
-
-        with open("exercise.py", mode="w") as solution_file:
-            solution_file.write(exercise_content)
-
-        return True
+        return generate_exercise.generate_exercise(
+            resource_directory_path=self.resource_directory_path,
+            solution_file_name=solution_file_name,
+        )
 
     def set_exercise_result(self, success: bool) -> None:
         self.resource_picker.set_result(success=success)
@@ -61,7 +45,7 @@ if __name__ == "__main__":
     pfc = PythonFlashCards()
 
     while True:
-        exercise_found = pfc.generate_exercise()
+        exercise_found = pfc.get_exercise()
         if not exercise_found:
             print("No exercise available, come back tomorrow")
             exit()

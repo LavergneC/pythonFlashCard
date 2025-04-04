@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from main.generate_exercise_components.resource_picker import (
+from main.resources_management.resource_picker import (
     ResourceData,
     ResourcePicker,
 )
