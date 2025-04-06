@@ -106,6 +106,30 @@ def test_db_initialization_from_files() -> None:
     assert os.path.exists(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB)
 
 
+def test_db_initialization_from_files_for_quiz() -> None:
+    # Make sure there is no db
+    if os.path.exists(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB):
+        os.remove(TEST_RESOURCE_STORAGE.db_PATH_NEW_DB)
+
+    rs = ResourceStorage(
+        resource_csv_path=TEST_RESOURCE_STORAGE.db_PATH_NEW_DB,
+        resource_directory_path=TEST_RESOURCE_STORAGE.PATH_QUIZ,
+    )
+    resources = rs.read()
+
+    yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).date()
+
+    assert (
+        ResourceData(
+            filename=TEST_RESOURCE_STORAGE.RESOURCE_4,
+            score=0,
+            last_seen_date=yesterday,
+        )
+        in resources
+    )
+    assert len(resources) == 1
+
+
 @pytest.fixture
 def third_resource():
     shutil.copyfile(

@@ -25,6 +25,9 @@ class PythonFlashCards:
         if solution_file_name is None:
             return False
 
+        if solution_file_name.endswith(".quiz"):
+            return True
+
         return generate_exercise.generate_exercise(
             resource_directory_path=self.resource_directory_path,
             solution_file_name=solution_file_name,

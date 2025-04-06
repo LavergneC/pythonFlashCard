@@ -63,7 +63,11 @@ class ResourceStorage:
         return ResourceData(filename=filename, score=0, last_seen_date=yesterday)
 
     def _get_filepaths(self, path: str, files: list) -> list[str]:
-        files = [filename for filename in files if filename.endswith(".py")]
+        files = [
+            filename
+            for filename in files
+            if filename.endswith(".py") or filename.endswith(".quiz")
+        ]
 
         filepaths = []
         for filename in files:
