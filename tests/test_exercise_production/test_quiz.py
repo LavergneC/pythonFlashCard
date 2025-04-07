@@ -50,3 +50,48 @@ def test_be_cool_with_spaces() -> None:
     simple_quiz = Quiz(quiz_file_content=quiz_file_content)
     simple_quiz.get_question()
     assert simple_quiz.test_answer("I  lovepython") is True
+
+
+def test_has_next_question() -> None:
+    quiz_file_content = "Q: Capital de la france ?\na) Rome\nb) Paris\nA: b"
+    single_quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    assert single_quiz.has_next_question() is True
+    single_quiz.get_question()
+    assert single_quiz.has_next_question() is False
+
+    quiz_file_content = "Q: Capital de la france ?\na) Rome\nb) Paris\nA: b\n\nQ: How many segments in a square ?\na) 2\nb) 3\nc) 4\nA: c"
+    double_quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    assert double_quiz.has_next_question() is True
+    double_quiz.get_question()
+    assert double_quiz.has_next_question() is True
+    double_quiz.get_question()
+    assert double_quiz.has_next_question() is False
+
+
+def test_score() -> None:
+    quiz_file_content = "Q: Capital de la france ?\na) Rome\nb) Paris\nA: b\n\nQ: How many segments in a square ?\na) 2\nb) 3\nc) 4\nA: c"
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    quiz.get_question()
+    quiz.test_answer("b")
+    quiz.get_question()
+    quiz.test_answer("c")
+    assert quiz.get_score() == 1.0
+
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    quiz.get_question()
+    quiz.test_answer("a")
+    quiz.get_question()
+    quiz.test_answer("a")
+    assert quiz.get_score() == 0.0
+
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    quiz.get_question()
+    quiz.test_answer("a")
+    quiz.get_question()
+    quiz.test_answer("c")
+    assert quiz.get_score() == 0.5

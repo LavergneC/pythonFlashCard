@@ -11,6 +11,7 @@ class Quiz:
     def __init__(self, quiz_file_content: str) -> None:
         self.question_answers = []
         self.current_question = 0
+        self._correct_answer_count = 0
 
         for line in quiz_file_content.split("\n"):
             if len(line) < 2:
@@ -29,10 +30,17 @@ class Quiz:
         return self.question_answers[self.current_question - 1].question
 
     def test_answer(self, answer: str) -> bool:
-        return (
-            answer.replace(" ", "")
-            == self.question_answers[self.current_question - 1].answer
-        )
+        answer = answer.replace(" ", "")
+        success = answer == self.question_answers[self.current_question - 1].answer
+        if success:
+            self._correct_answer_count += 1
+        return success
 
     def get_correct_answer(self) -> str:
         return self.question_answers[self.current_question - 1].answer
+
+    def has_next_question(self) -> bool:
+        return self.current_question < len(self.question_answers)
+
+    def get_score(self) -> float:
+        return self._correct_answer_count / len(self.question_answers)
