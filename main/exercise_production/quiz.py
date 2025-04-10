@@ -14,7 +14,7 @@ class Quiz:
         self._correct_answer_count = 0
 
         for line in quiz_file_content.split("\n"):
-            if len(line) < 2:
+            if len(line) < 2 or line.startswith("#"):
                 continue
             if line.startswith("Q: "):
                 self.question_answers.append(

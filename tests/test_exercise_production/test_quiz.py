@@ -95,3 +95,13 @@ def test_score() -> None:
     quiz.get_question()
     quiz.test_answer("c")
     assert quiz.get_score() == 0.5
+
+
+def test_comment_lines() -> None:
+    quiz_file_content = "# This is a comment line\nQ: Capital de la france ?\na) Rome\nb) Paris\nA: b\n\n# This is another comment line\nQ: How many segments in a square ?\na) 2\nb) 3\nc) 4\nA: c"
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+    quiz.get_question()
+    quiz.test_answer("b")
+    quiz.get_question()
+    quiz.test_answer("c")
+    assert quiz.get_score() == 1.0
