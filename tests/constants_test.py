@@ -105,3 +105,7 @@ def test_temperature_management_add_temperature():
     FUNCTION_2_DOCSTRING = "Add a temperature to a given day"
 
     STATIC_TEXT_WITH_PREVIOUS_CONTENT = f'{FUNCTION_2_DOCSTRING}\n        """\n        pass\n\n{STATIC_TEXTS.CLASS_USER_CODE}'
+
+
+class TEST_QUIZ:
+    PATH = "tests/test_data/test_generate_exercise_resources/test_quiz/exercise_is_a_quiz.quiz"

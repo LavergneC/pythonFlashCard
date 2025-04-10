@@ -2,7 +2,8 @@ from io import StringIO
 from unittest.mock import patch
 
 from main.exercise_production.quiz import Quiz
-from main.exercise_production.quiz_prompter import prompt_quiz
+from main.exercise_production.quiz_prompter import prompt_quiz, prompt_quiz_from_path
+from tests.constants_test import TEST_QUIZ
 
 
 @patch("sys.stdout", new_callable=StringIO)
@@ -62,3 +63,13 @@ def test_multiple_questions(fake_out, monkeypatch):
         fake_out.getvalue()
         == f"{question_1}\nCorrect!\n{question_2}\nWrong, the correct answer was 'c'\n"
     )
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_prompt_quiz_from_path(fake_out, monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "Paris")
+
+    prompt_quiz_from_path(TEST_QUIZ.PATH)
+
+    assert "This is the first question." in fake_out.getvalue()
+    assert "Wrong, the correct answer was 'Blue'" in fake_out.getvalue()
