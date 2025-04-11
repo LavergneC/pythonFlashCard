@@ -21,7 +21,7 @@ class Quiz:
                     QuestionAnswer(question=line[3:].rstrip() + "\n", answer="")
                 )
             elif line.startswith("A: "):
-                self.question_answers[-1].answer = line[3:].rstrip().replace(" ", "")
+                self.question_answers[-1].answer = line[3:].rstrip()
             else:
                 self.question_answers[-1].question += line.rstrip() + "\n"
 
@@ -31,7 +31,9 @@ class Quiz:
 
     def test_answer(self, answer: str) -> bool:
         answer = answer.replace(" ", "")
-        success = answer == self.question_answers[self.current_question - 1].answer
+        success = answer == self.question_answers[
+            self.current_question - 1
+        ].answer.replace(" ", "")
         if success:
             self._correct_answer_count += 1
         return success
@@ -40,7 +42,11 @@ class Quiz:
         return self.question_answers[self.current_question - 1].answer
 
     def has_next_question(self) -> bool:
-        return self.current_question < len(self.question_answers)
+        return self.current_question < self.question_count
 
     def get_score(self) -> float:
-        return self._correct_answer_count / len(self.question_answers)
+        return self._correct_answer_count / self.question_count
+
+    @property
+    def question_count(self) -> int:
+        return len(self.question_answers)

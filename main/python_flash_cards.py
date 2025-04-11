@@ -87,7 +87,7 @@ if __name__ == "__main__":
             score = prompt_quiz(pfc.next_quiz)
             success = score > 0.7999
             print(
-                f"Your score is {int(score * 100)}%. It's {'>' if success else '<'} to 80%."
+                f"Your score is {int(score * 100)}%. It's {'>' if success else '<'}80%."
             )
             pfc.set_exercise_result(success)
 
