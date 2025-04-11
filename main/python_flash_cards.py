@@ -52,7 +52,7 @@ class PythonFlashCards:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 3 and sys.argv[1] == "test_exercise":
+    if len(sys.argv) == 3 and sys.argv[1] == "--solution_to_exercise":
         with open(sys.argv[2]) as exercise_file:
             ste = SolutionToExercise()
             print(ste.solution_to_exercise(solution_content=exercise_file.read()))
