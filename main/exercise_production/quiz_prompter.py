@@ -20,6 +20,7 @@ def prompt_quiz(quiz: Quiz) -> float:
         else:
             print("Wrong, the correct answer was '" + quiz.get_correct_answer() + "'")
 
+        print()
         question_count += 1
 
     return quiz.get_score()
