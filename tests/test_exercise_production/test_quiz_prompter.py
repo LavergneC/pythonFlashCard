@@ -22,7 +22,7 @@ def test_correct_answer(fake_out, monkeypatch):
     monkeypatch.setattr("builtins.input", lambda _: next(a))
     score = prompt_quiz(quiz=quiz)
 
-    assert fake_out.getvalue() == f"{question}\nCorrect!\n"
+    assert fake_out.getvalue() == f"Question 1/1: {question}\nCorrect!\n"
     assert score == 1.0
 
 
@@ -39,7 +39,10 @@ def test_incorrect_answer(fake_out, monkeypatch):
     monkeypatch.setattr("builtins.input", lambda _: next(a))
     score = prompt_quiz(quiz=quiz)
 
-    assert fake_out.getvalue() == f"{question}\nWrong, the correct answer was 'b'\n"
+    assert (
+        fake_out.getvalue()
+        == f"Question 1/1: {question}\nWrong, the correct answer was 'b'\n"
+    )
     assert score == 0.0
 
 
@@ -63,7 +66,7 @@ def test_multiple_questions(fake_out, monkeypatch):
 
     assert (
         fake_out.getvalue()
-        == f"{question_1}\nCorrect!\n{question_2}\nWrong, the correct answer was 'c'\n"
+        == f"Question 1/2: {question_1}\nCorrect!\nQuestion 2/2: {question_2}\nWrong, the correct answer was 'c'\n"
     )
 
 
