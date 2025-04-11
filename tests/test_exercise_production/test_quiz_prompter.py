@@ -1,8 +1,10 @@
 from io import StringIO
 from unittest.mock import patch
 
+import pytest
+
 from main.exercise_production.quiz import Quiz
-from main.exercise_production.quiz_prompter import prompt_quiz, prompt_quiz_from_path
+from main.exercise_production.quiz_prompter import get_quiz_from_path, prompt_quiz
 from tests.constants_test import TEST_QUIZ
 
 
@@ -65,11 +67,11 @@ def test_multiple_questions(fake_out, monkeypatch):
     )
 
 
-@patch("sys.stdout", new_callable=StringIO)
-def test_prompt_quiz_from_path(fake_out, monkeypatch):
-    monkeypatch.setattr("builtins.input", lambda _: "Paris")
+def test_get_quiz_from_path():
+    quiz = get_quiz_from_path(TEST_QUIZ.PATH)
+    assert quiz.get_question() == "This is the first question.\n"
 
-    prompt_quiz_from_path(TEST_QUIZ.PATH)
 
-    assert "This is the first question." in fake_out.getvalue()
-    assert "Wrong, the correct answer was 'Blue'" in fake_out.getvalue()
+def test_get_quiz_from_bad_path_raise_error():
+    with pytest.raises(FileNotFoundError):
+        get_quiz_from_path("very/bad/path.quiz")

@@ -1,11 +1,11 @@
 from main.exercise_production.quiz import Quiz
 
 
-def prompt_quiz_from_path(quiz_file_path: str) -> float:
+def get_quiz_from_path(quiz_file_path: str) -> Quiz:
     with open(quiz_file_path) as quiz_file:
-        return prompt_quiz(quiz=Quiz(quiz_file.read()))
+        return Quiz(quiz_file.read())
 
-    raise RuntimeError("Could not open quiz file")
+    raise FileNotFoundError(f"Could not open quiz file {quiz_file_path}")
 
 
 def prompt_quiz(quiz: Quiz) -> float:

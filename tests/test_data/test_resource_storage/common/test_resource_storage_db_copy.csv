@@ -1,0 +1,4 @@
+filename,score,last_seen_date
+test_resource_2.py,30.0,2025-04-10
+test_resource_1.py,30.0,2025-04-10
+sub_dir/test_resource_3.py,30.0,2025-04-10
