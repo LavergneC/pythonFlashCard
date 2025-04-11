@@ -1,0 +1,103 @@
+# Modules et Packages
+
+Q: Is it possible to add directories in the import search path at runtime?
+(yes or no)
+A: yes
+
+Q: How to add a directory in the import search path at runtime?
+>>> ________.append(r'C:\Users\john')
+A: sys.path
+
+Q: What does from <module_name> import * do?
+a) It imports only the public objects from a module.
+b) It raises a SyntaxError.
+c) It imports all objects from a module into the local symbol table.
+d) It imports the module as an alias named *.
+A: a
+
+Q: How to import 'pi' from the 'math' module and rename it to 'PI'? (static import, no assignation)
+A: from math import pi as PI
+
+Q: Witch variable is used to know the name of a module ?
+A: __name__
+
+Q: There is the content of my module named super_module.py: 
+```
+print("Hello")
+
+def my_function():
+	a = 5
+```
+When will the print occurs ?
+a) When the .py file is executed directly using `python super_module.py`
+b) When the module is imported using `import super_module`
+c) When the module is imported using `from super_module import my_function`
+d) Never
+A: a, b, c
+
+Q: Follow up!
+How to make this print ONLY occur when the .py file is executed directly using `python super_module.py`?
+(One line of code)
+A: if __name__ == "__main__": print("Hello")
+
+Q: If you make a change to a module and need to reload it you can:
+a) Restart the interpreter
+b) Re-execute `import module`
+c) Use a dedicated package to reload the module.
+A: a, c
+
+Q: What's the name of the package used to reload a module?
+A: importlib
+
+Q: Suppose that you have a package named pkg with two modules mod1 and mod2 inside. mod1 has a function foo() and mod2 has a function bar().
+How to import in order to be able to type `mod1.foo()`
+A: from pkg import mod1
+
+Q: Follow up!
+How to import in order to be able to type `baz()` witch need to execute 'bar' function (alias)
+A: from pkg.mod2 import bar as baz
+
+Q: Follow up!
+What does `from pkg import *` do?
+a) It imports only the public objects from a module.
+b) It imports all objects from a module into the local symbol table.
+c) Nothing
+A: c
+
+Q: How to change the behavior of `from pkg import *` to make it import 'mod1'?
+Create or edit the _______ file and assigning `["mod1"]` to the ______ variable
+(2 words, separated by a comma)
+A: __init__.py, __all__
+
+Q: Where does python looks for when we type `import X`? (non-interactive mode)
+a) PYTHONPATH
+b) PATH
+c) The current directory
+d) The directory of the .py that does the import
+e) Directories added during the python installation
+f) Directories added at runtime
+A: a, d, e, f
+
+Q: Suppose you have a module named 'my_module', my_module has a function 'my_function', what works?
+a) import my_module
+   my_function()
+
+b) import my_module
+   my_module.my_function()
+
+c) from my_module import my_function
+   my_function()
+
+d) from my_module import my_function
+   my_module.my_function()
+
+A: b, c
+
+Q: Suppose you have a package named 'pkg' with a module named 'my_module', what always works in order to import 'my_module'?
+a) `import pkg.my_module`
+b) `from pkg.my_module import monObjet`
+c) `from pkg.my_module import monOBject as obj`
+d) `from pkg import my_module`
+e) `from pkg import my_module as mod`
+f) `import pkg`
+A: a, b, c, d, e

@@ -1,0 +1,53 @@
+# Duck typing
+# https://realpython.com/videos/duck-typing-python-overview/
+
+Q: Which statement best describes Duck Typing?  
+a) An object’s type is determined by its behavior, not its class.  
+b) It ensures type safety by enforcing strict type checks.  
+c) It requires all objects to inherit from a common base class.  
+d) It prevents runtime errors by verifying types at compile time.  
+A: a
+
+Q: What is the main difference between duck typing and classical inheritance?
+a) Duck typing uses multiple inheritance.
+b) Duck typing does not rely on a base class.
+c) Duck typing is more secure
+A: b
+
+Q: What will be the output of the following code?
+
+class Dog:
+    def speak(self):
+        print("Woof!")
+  
+class Cat:
+    def speak(self):
+        print("Meow!")
+  
+animals = [Dog(), Cat()]
+  
+for animal in animals:
+    animal.speak()
+  
+a) "Woof!" then "Meow!"
+b) An error at some point
+A: a
+
+Q: Complete the sentence: 
+"The principle of duck typing is based on __________ rather than __________ of an object."
+(Answer with two words separated by a space)
+A: behavior type
+
+Q: Witch affirmations are true about duck typing?
+a) It can lead to runtime errors.
+b) It forces the use of abstract base classes.
+c) It does not allow code reuse.
+d) It helps with code readability
+e) It provides code flexibility
+A: a, e
+
+Q: What is a good alternative to duck typing?
+a) Using Abstract Base Classes.
+b) Explicit typing
+b) Using `if isinstance(obj, Type)`
+A: a
