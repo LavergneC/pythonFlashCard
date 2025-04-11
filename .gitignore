@@ -178,3 +178,5 @@ db.csv
 # Tests
 test_resource_storage_db_new.csv
 test_pre_written.csv
+test_resource_storage_db_copy.csv
+db-test.csv

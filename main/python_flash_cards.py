@@ -1,7 +1,8 @@
+import shutil
 import sys
 from enum import Enum
 
-from main.constants import RESOURCE_DB_PATH, RESOURCES_PATH
+from main.constants import RESOURCE_DB_PATH, RESOURCE_TEST_DB_PATH, RESOURCES_PATH
 from main.exercise_production import generate_exercise
 from main.exercise_production.quiz_prompter import get_quiz_from_path, prompt_quiz
 from main.exercise_production.solution_to_exercise import SolutionToExercise
@@ -57,7 +58,14 @@ if __name__ == "__main__":
             print(ste.solution_to_exercise(solution_content=exercise_file.read()))
         exit()
 
-    pfc = PythonFlashCards()
+    if len(sys.argv) == 2 and sys.argv[1] in ("--test", "-t"):
+        shutil.copyfile(RESOURCE_DB_PATH, RESOURCE_TEST_DB_PATH)
+        resource_csv_path = RESOURCE_TEST_DB_PATH
+        print(">>> db test mode <<<")
+    else:
+        resource_csv_path = RESOURCE_DB_PATH
+
+    pfc = PythonFlashCards(resource_csv_path=resource_csv_path)
 
     while True:
         exercise_type = pfc.get_exercise()

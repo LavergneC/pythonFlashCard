@@ -23,3 +23,4 @@ KEEP_LINE_TAG = "# fcPython:keep line"
 RESOURCES_PATH = "main/resources"
 RESOURCE_DB_NAME = "db.csv"
 RESOURCE_DB_PATH = RESOURCE_DB_NAME
+RESOURCE_TEST_DB_PATH = "db-test.csv"
