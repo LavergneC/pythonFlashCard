@@ -33,11 +33,6 @@ a) "Woof!" then "Meow!"
 b) An error at some point
 A: a
 
-Q: Complete the sentence: 
-"The principle of duck typing is based on __________ rather than __________ of an object."
-(Answer with two words separated by a space)
-A: behavior type
-
 Q: Witch affirmations are true about duck typing?
 a) It can lead to runtime errors.
 b) It forces the use of abstract base classes.

@@ -8,7 +8,7 @@ Q: How to add a directory in the import search path at runtime?
 >>> ________.append(r'C:\Users\john')
 A: sys.path
 
-Q: What does from <module_name> import * do?
+Q: What does `from <module_name> import * do`?
 a) It imports only the public objects from a module.
 b) It raises a SyntaxError.
 c) It imports all objects from a module into the local symbol table.
@@ -49,13 +49,13 @@ A: a, c
 Q: What's the name of the package used to reload a module?
 A: importlib
 
-Q: Suppose that you have a package named pkg with two modules mod1 and mod2 inside. mod1 has a function foo() and mod2 has a function bar().
+Q: Suppose that you have a package named pkg with one module mod1 inside. mod1 has a function foo().
 How to import in order to be able to type `mod1.foo()`
 A: from pkg import mod1
 
 Q: Follow up!
-How to import in order to be able to type `baz()` witch need to execute 'bar' function (alias)
-A: from pkg.mod2 import bar as baz
+How to import in order to be able to type `foz()` witch need to execute 'foo' function (alias)
+A: from pkg.mod1 import foo as foz
 
 Q: Follow up!
 What does `from pkg import *` do?
@@ -96,7 +96,7 @@ A: b, c
 Q: Suppose you have a package named 'pkg' with a module named 'my_module', what always works in order to import 'my_module'?
 a) `import pkg.my_module`
 b) `from pkg.my_module import monObjet`
-c) `from pkg.my_module import monOBject as obj`
+c) `from pkg.my_module import monObject as obj`
 d) `from pkg import my_module`
 e) `from pkg import my_module as mod`
 f) `import pkg`
