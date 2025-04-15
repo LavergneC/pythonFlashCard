@@ -1,3 +1,4 @@
+import os
 import shutil
 import sys
 from enum import Enum
@@ -84,6 +85,15 @@ if __name__ == "__main__":
             pfc.set_exercise_result(user_input in "yY")
 
         elif exercise_type == PythonFlashCards.ExerciseType.QUIZ:
+            os.system("cls" if os.name == "nt" else "clear")  # terminal clear
+            print(
+                "This exercise is a quiz! Everything will happen here in the console.\n"
+                "For multiple choices questions, type your selected choices in order, separated by commas.\n"
+                "Example: 'a,c,f' is correct, while 'a,f,c' or 'a c f' are not.\n\n"
+                "Press Enter to start..."
+            )
+            input()
+
             score = prompt_quiz(pfc.next_quiz)
             success = score > 0.7999
             print(
