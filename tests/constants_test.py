@@ -42,6 +42,7 @@ class TEST_SOLUTION_TO_EXERCISE_RESOURCES:
     CLASS = PATH + "/" + "class_resource.py"
     TEST_NO_IMPORT_RESOURCE_DEF = "def dishes_from_ingredients(ingredients: list[str], meal_size: int) -> list[tuple]:"
     WITH_PATCH = PATH + "/" + "simple_with_patch_test.py"
+    IMPORT_EMPTY_LINE = PATH + "/" + "import_with_empty_line.py"
 
 
 class TEST_SOLUTION_TO_EXERCISE_SIMPLE:

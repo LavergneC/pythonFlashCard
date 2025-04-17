@@ -122,3 +122,13 @@ def test_patch_at_start_of_test() -> None:
         exercise_content = ste.solution_to_exercise(solution_file.read())
 
     assert "@patch" in exercise_content
+
+
+def test_imports_with_empty_line_works() -> None:
+    ste = SolutionToExercise()
+
+    exercise_content = ""
+    with open(TEST_SOLUTION_TO_EXERCISE_RESOURCES.IMPORT_EMPTY_LINE) as solution_file:
+        exercise_content = ste.solution_to_exercise(solution_file.read())
+
+    assert "from mypy import api as typing_check" in exercise_content

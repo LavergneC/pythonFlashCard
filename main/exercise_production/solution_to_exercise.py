@@ -25,12 +25,14 @@ class SolutionToExercise:
         """
         From an exercise file content, return the header that will be prompted to the user
         """
+        previous_line = None
         output = ""
         for line in file_content.split("\n"):
             if KEEP_LINE_TAG in line:
                 output += line.split(f"  {KEEP_LINE_TAG}")[0] + "\n"
-            elif line == "":
+            elif line == "" and previous_line == "":
                 return output + ("\n\n" if len(output) else "")
+            previous_line = line
 
         raise Exception("End of import not found")
 
