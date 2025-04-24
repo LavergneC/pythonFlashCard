@@ -27,6 +27,9 @@ def storage_manager(storage_capacity):
     ##################
 
 
+# The following section should not be modified.
+# It contains all the tests used to validate your response
+# Test your solution by running '$ pytest exercise.py'
 def test_storage_manager() -> None:
     warehouse = storage_manager(storage_capacity=100)
 
