@@ -76,7 +76,8 @@ if __name__ == "__main__":
 
         if exercise_type == PythonFlashCards.ExerciseType.SCRIPT:
             print(
-                "exercise.py file has been generated, go do it and come back when you're done"
+                "exercise.py file has been generated, open it and try to solve it"
+                "solution.py file has been copied for you see if your solution is the intended code"
             )
             user_input = input("Did you succeeded ? (y/n) ")
             while user_input not in "yYnN":
