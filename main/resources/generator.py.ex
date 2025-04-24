@@ -7,17 +7,22 @@ def storage_manager(storage_capacity):
     A generator function that manages a storage system with a given capacity.
     It allows adding or removing quantities from the storage and ensures that
     the storage does not exceed its capacity or go below zero.
+
     Args:
         storage_capacity: The maximum capacity of the storage.
+
     Yields:
-        int: The remaining capacity of the storage after each operation.
+        The remaining capacity of the storage after each operation.
+
     Receives:
-        tuple: A tuple containing an operation and a quantity.
-                         The operation can be '+' to add or '-' to remove
-                         the specified quantity.
+        tuple: A tuple containing an 'operation' and a 'quantity'.
+                        'operation' can be '+' to add or '-' to remove
+                        'quantity' is an int.
+
     Returns:
         str: A message indicating an error, such as an invalid operation,
              storage overflow, or storage < 0.
+
     Raises:
         StopIteration: When an invalid operation is provided or the storage
                        exceeds its capacity or goes below zero.
