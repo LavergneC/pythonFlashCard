@@ -20,7 +20,7 @@ def test_correct_answer(fake_out, monkeypatch):
 
     a = answer_typing()
     monkeypatch.setattr("builtins.input", lambda _: next(a))
-    score = prompt_quiz(quiz=quiz)
+    score = prompt_quiz(quiz=quiz, use_color=False)  # Disable colors for testing
 
     assert fake_out.getvalue() == f"Question 1/1: {question}\nCorrect!\n\n"
     assert score == 1.0
@@ -37,7 +37,7 @@ def test_incorrect_answer(fake_out, monkeypatch):
 
     a = answer_typing()
     monkeypatch.setattr("builtins.input", lambda _: next(a))
-    score = prompt_quiz(quiz=quiz)
+    score = prompt_quiz(quiz=quiz, use_color=False)
 
     assert (
         fake_out.getvalue()
@@ -60,7 +60,7 @@ def test_multiple_questions(fake_out, monkeypatch):
 
     a = answer_typing()
     monkeypatch.setattr("builtins.input", lambda _: next(a))
-    score = prompt_quiz(quiz=quiz)
+    score = prompt_quiz(quiz=quiz, use_color=False)
 
     assert score == 0.5
 
