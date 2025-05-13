@@ -2,14 +2,18 @@
 # [Python typing]
 import random
 from itertools import product
+from typing import TypeAlias
 
 from mypy import api as typing_check  # fcPython:keep line
 
-SUITS = "♠ ♡ ♢ ♣".split()
-RANKS = "2 3 4 5 6 7 8 9 10 J Q K A".split()
+SUITS: list[str] = "♠ ♡ ♢ ♣".split()
+RANKS: list[str] = "2 3 4 5 6 7 8 9 10 J Q K A".split()
+
+Card: TypeAlias = tuple[str, str]
+Deck: TypeAlias = list[Card]
 
 
-def create_deck(shuffle=False):
+def create_deck(shuffle: bool = False) -> Deck:
     """
     Create a deck of 52 cards. A deck is a list of cards, a card is a tuple of (suit, rank)
         suits : "♠ ♡ ♢ ♣"
