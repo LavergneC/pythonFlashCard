@@ -34,12 +34,13 @@ def storage_manager(storage_capacity: int) -> Generator[int, tuple[str, int], st
 
     while True:
         operation, quantity = yield storage_capacity - current_quantity
+
         if operation == "+":
             current_quantity += quantity
         elif operation == "-":
             current_quantity -= quantity
         else:
-            return f"Bad operation, should be '+' or '-' not '{operation}'"
+            return "Bad operation provided"
 
         if current_quantity > storage_capacity:
             return "Storage capacity overflow"
@@ -63,6 +64,12 @@ def test_storage_manager() -> None:
 
     with pytest.raises(StopIteration, match="Storage capacity < 0"):
         garage.send(("-", 15))
+
+    box = storage_manager(storage_capacity=33)
+    next(box)
+
+    with pytest.raises(StopIteration, match="Bad operation provided"):
+        box.send(("=", 2))
 
     result = typing_check.run(["exercise.py"])
     assert result[2] == 0, result[0] if result[0] else result[1]

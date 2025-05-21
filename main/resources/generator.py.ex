@@ -52,5 +52,11 @@ def test_storage_manager() -> None:
     with pytest.raises(StopIteration, match="Storage capacity < 0"):
         garage.send(("-", 15))
 
+    box = storage_manager(storage_capacity=33)
+    next(box)
+
+    with pytest.raises(StopIteration, match="Bad operation provided"):
+        box.send(("=", 2))
+
     result = typing_check.run(["exercise.py"])
     assert result[2] == 0, result[0] if result[0] else result[1]
