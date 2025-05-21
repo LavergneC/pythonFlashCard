@@ -2,7 +2,7 @@
 from collections import Counter
 
 
-def majority_element_indexes(lst):
+def majority_element_indexes(lst: list[int]) -> list[int]:
     """
     Return a list of the indexes of the majority element.
     Majority element is the element that appears more than
@@ -10,7 +10,7 @@ def majority_element_indexes(lst):
     If there is no majority element, return []
     """
     majority_tuple_list = Counter(lst).most_common(1)
-    if majority_tuple_list is None or not len(majority_tuple_list):
+    if not len(majority_tuple_list):
         return []
 
     majority_element, majority_element_count = majority_tuple_list[0]

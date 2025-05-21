@@ -6,7 +6,7 @@ class MeteoData:
     def __init__(self, initial_temperatures: dict[str, list[int]]) -> None:
         self.temperatures = defaultdict(list, initial_temperatures)
 
-    def get_temperature(self, day: str) -> int:
+    def get_temperature(self, day: str) -> list[int]:
         """
         This function will return the temperature for a given day
         it will return an empty list if the day isn't recorded
@@ -17,8 +17,6 @@ class MeteoData:
         """
         Add a temperature to a given day
         """
-        # This syntaxe is only possible thanks to defaultdict
-        # if temperatures[day] does not exist, it will be an empty list
         self.temperatures[day].append(temperature)
 
 
