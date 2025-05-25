@@ -5,7 +5,7 @@ from enum import Enum
 
 from main.constants import RESOURCE_DB_PATH, RESOURCE_TEST_DB_PATH, RESOURCES_PATH
 from main.exercise_production import generate_exercise
-from main.exercise_production.quiz_prompter import get_quiz_from_path, prompt_quiz
+from main.exercise_production.quiz_prompter import QuizPrompter
 from main.exercise_production.solution_to_exercise import SolutionToExercise
 from main.resources_management.resource_picker import ResourcePicker
 from main.resources_management.resource_storage import ResourceStorage
@@ -35,7 +35,7 @@ class PythonFlashCards:
             return self.ExerciseType.NONE
 
         if solution_file_name.endswith(".quiz"):
-            self.next_quiz = get_quiz_from_path(
+            self.next_quiz = QuizPrompter.get_quiz_from_path(
                 f"{self.resource_directory_path}/{solution_file_name}"
             )
             return self.ExerciseType.QUIZ
@@ -94,8 +94,8 @@ if __name__ == "__main__":
                 "Press Enter to start..."
             )
             input()
-
-            score = prompt_quiz(pfc.next_quiz)
+            quiz_prompter = QuizPrompter(pfc.next_quiz)
+            score = quiz_prompter.prompt_quiz()
             success = score > 0.7999
             print(
                 f"Your score is {int(score * 100)}%. It's {'>' if success else '<'}80%."
