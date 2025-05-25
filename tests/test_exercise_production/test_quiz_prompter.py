@@ -4,12 +4,17 @@ from unittest.mock import patch
 import pytest
 
 from main.exercise_production.quiz import Quiz
-from main.exercise_production.quiz_prompter import get_quiz_from_path, prompt_quiz
+from main.exercise_production.quiz_prompter import (
+    apply_transformer_to_user_response,
+    get_quiz_from_path,
+    prompt_quiz,
+    randomized_question,
+)
 from tests.constants_test import TEST_QUIZ
 
 
 @patch("sys.stdout", new_callable=StringIO)
-def test_correct_answer(fake_out, monkeypatch):
+def test_correct_answer(fake_out, monkeypatch):  # type: ignore
     def answer_typing():
         yield "b"
 
@@ -78,3 +83,107 @@ def test_get_quiz_from_path():
 def test_get_quiz_from_bad_path_raise_error():
     with pytest.raises(FileNotFoundError):
         get_quiz_from_path("very/bad/path.quiz")
+
+
+@pytest.fixture
+def mock_random_shuffle():
+    with patch("random.shuffle") as mock_shuffle:
+
+        def side_effect(lst):
+            # Doing nothing will reverse the answers
+            # order within the randomized_question() function
+            pass
+
+        mock_shuffle.side_effect = side_effect
+        yield mock_shuffle
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_randomize_multiple_choices_question_correct_answer(
+    fake_out,
+    monkeypatch,
+    mock_random_shuffle,
+):
+    def answer_typing():
+        yield "a"
+
+    question = "Capital of France?\na) Rome\nb) Paris\n"
+    quiz_file_content = f"Q: {question}A: b"
+
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    # User types "a" witch is correct because the order has been randomized
+    a = answer_typing()
+    monkeypatch.setattr("builtins.input", lambda _: next(a))
+
+    prompt_quiz(quiz=quiz, use_color=False, randomize_multiple_choices_question=True)
+
+    # Question choices are reversed
+    mixed_question = "Capital of France?\na) Paris\nb) Rome\n"
+    assert fake_out.getvalue() == f"Question 1/1: {mixed_question}\nCorrect!\n\n"
+
+
+def test_randomized_question_on_normal_question():
+    question = "Number of finger on a normal hand ?\n"
+    assert randomized_question(question) == (question, {})
+
+
+def test_randomized_question_mix_question(mock_random_shuffle):
+    two_choices_question = "Capital de la france ?\na) Rome\nb) Paris\n"
+    four_choices_question = (
+        "Capital de la france ?\na) Rome\nb) Paris\nc) Berlin\nd) London\n"
+    )
+
+    new_question, _ = randomized_question(two_choices_question)
+    assert new_question == "Capital de la france ?\na) Paris\nb) Rome\n"
+
+    new_question, _ = randomized_question(four_choices_question)
+    assert (
+        new_question
+        == "Capital de la france ?\na) London\nb) Berlin\nc) Paris\nd) Rome\n"
+    )
+
+
+def test_randomized_question_transformer_matrix(mock_random_shuffle):
+    four_choices_question = (
+        "Capital de la france ?\na) Rome\nb) Paris\nc) Berlin\nd) London\n"
+    )
+    _, answer_transformation = randomized_question(four_choices_question)
+    assert answer_transformation == {
+        "a": "d",
+        "b": "c",
+        "c": "b",
+        "d": "a",
+    }
+
+
+def test_apply_transformer_to_user_response():
+    transformer: dict[str, str] = {
+        "a": "b",
+        "b": "a",
+        "c": "c",
+    }
+    user_input = "a,b,c"
+    assert (
+        apply_transformer_to_user_response(
+            transformer=transformer, user_input=user_input
+        )
+        == "b,a,c"
+    )
+
+
+def test_apply_transformer_to_user_response_with_random_input():
+    transformer: dict[str, str] = {
+        "a": "b",
+        "b": "a",
+        "c": "c",
+    }
+
+    user_input = "Random"
+
+    assert (
+        apply_transformer_to_user_response(
+            transformer=transformer, user_input=user_input
+        )
+        == user_input
+    )

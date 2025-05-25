@@ -5,7 +5,7 @@ from main.constants import (
 
 
 class SolutionToExercise:
-    def solution_to_exercise(self, solution_content) -> str:
+    def solution_to_exercise(self, solution_content: str) -> str:
         user_file_content = ""
         user_file_content += self._get_user_import(solution_content)
 
