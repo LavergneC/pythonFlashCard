@@ -96,7 +96,7 @@ def test_get_exercise_with_quiz():
     )
 
     assert pfc.get_exercise() == PythonFlashCards.ExerciseType.QUIZ
-    assert pfc.next_quiz.get_question() == "This is the first question.\n"
+    assert pfc.next_quiz.pop_question() == "This is the first question.\n"
 
     assert os.path.exists("exercise.py") is False
     assert os.path.exists("solution.py") is False

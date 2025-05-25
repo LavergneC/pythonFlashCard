@@ -25,7 +25,7 @@ class Quiz:
             else:
                 self.question_answers[-1].question += line.rstrip() + "\n"
 
-    def get_question(self) -> str:
+    def pop_question(self) -> str:
         self.current_question += 1
         return self.question_answers[self.current_question - 1].question
 

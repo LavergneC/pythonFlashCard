@@ -72,7 +72,7 @@ def test_multiple_questions(fake_out, monkeypatch):
 
 def test_get_quiz_from_path():
     quiz = get_quiz_from_path(TEST_QUIZ.PATH)
-    assert quiz.get_question() == "This is the first question.\n"
+    assert quiz.pop_question() == "This is the first question.\n"
 
 
 def test_get_quiz_from_bad_path_raise_error():
