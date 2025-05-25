@@ -34,16 +34,18 @@ class QuizPrompter:
         header = f"Question {self._question_count}/{self._quiz.question_count}: "
         question: str = self._quiz.pop_question()
 
-        current_question_needs_random: bool = self._use_random and "a) " in question
+        self._current_question_needs_random: bool = (
+            self._use_random and "a) " in question
+        )
 
-        if current_question_needs_random:
+        if self._current_question_needs_random:
             question = self._randomized_question(original_question=question)
 
         print(header + question)
         user_input = input("Your answer(s): ")
 
-        if current_question_needs_random:
-            user_input = self._apply_transformer_to_user_response(user_input=user_input)
+        if self._current_question_needs_random:
+            user_input = self._apply_transformer(source=user_input)
 
         if self._quiz.test_answer(user_input):
             print(self._colorize("Correct!", self.GREEN))
@@ -81,21 +83,25 @@ class QuizPrompter:
 
         return new_question
 
-    def _apply_transformer_to_user_response(self, user_input: str) -> str:
+    def _apply_transformer(self, source: str) -> str:
         return "".join(
             [
                 self._transformer[letter]
                 if letter in self._transformer.keys()
                 else letter
-                for letter in user_input
+                for letter in source
             ]
         )
 
     def _print_wrong_answer(self):
+        correct_answer = (
+            self._apply_transformer(self._quiz.get_correct_answer())
+            if self._current_question_needs_random
+            else self._quiz.get_correct_answer()
+        )
         print(
             self._colorize(
-                f"Wrong, the correct answer was '{self._quiz.get_correct_answer()}'",
-                self.RED,
+                f"Wrong, the correct answer was '{correct_answer}'", self.RED
             )
         )
 

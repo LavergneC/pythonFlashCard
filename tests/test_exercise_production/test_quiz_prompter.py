@@ -174,7 +174,28 @@ def test_apply_transformer_to_user_response():
     user_input = "a,b,c"
     quiz_prompter = QuizPrompter(quiz=Quiz(""), use_color=False, use_random=True)
     quiz_prompter._transformer = transformer
+    assert quiz_prompter._apply_transformer(source=user_input) == "b,a,c"
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_wrong_answer_with_random(fake_out, monkeypatch, mock_random_shuffle):
+    def answer_typing():
+        yield "b"
+
+    question = "Capital of France?\na) Rome\nb) Paris\n"
+    quiz_file_content = f"Q: {question}A: b"
+
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    a = answer_typing()
+    monkeypatch.setattr("builtins.input", lambda _: next(a))
+
+    quiz_prompter = QuizPrompter(quiz=quiz, use_color=False, use_random=True)
+    score = quiz_prompter.prompt_quiz()
+
+    mixed_question = "Capital of France?\na) Paris\nb) Rome\n"
     assert (
-        quiz_prompter._apply_transformer_to_user_response(user_input=user_input)
-        == "b,a,c"
+        fake_out.getvalue()
+        == f"Question 1/1: {mixed_question}\nWrong, the correct answer was 'a'\n\n"
     )
+    assert score == 0.0
