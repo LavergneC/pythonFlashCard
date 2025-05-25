@@ -199,3 +199,26 @@ def test_wrong_answer_with_random(fake_out, monkeypatch, mock_random_shuffle):
         == f"Question 1/1: {mixed_question}\nWrong, the correct answer was 'a'\n\n"
     )
     assert score == 0.0
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_correct_answer_with_random_and_multiple_correct_answers(
+    fake_out,
+    monkeypatch,
+    mock_random_shuffle,
+):
+    def answer_typing():
+        yield "a, b"
+
+    question = "Witch sentences are true?\na) Paris is in France\nb) Rome is in Italy\n"
+    quiz_file_content = f"Q: {question}A: a, b"
+    quiz = Quiz(quiz_file_content=quiz_file_content)
+
+    a = answer_typing()
+    monkeypatch.setattr("builtins.input", lambda _: next(a))
+
+    quiz_prompter = QuizPrompter(quiz=quiz, use_color=False, use_random=True)
+    score = quiz_prompter.prompt_quiz()
+
+    assert "Correct!" in fake_out.getvalue()
+    assert score == 1.0

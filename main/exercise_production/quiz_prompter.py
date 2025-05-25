@@ -46,6 +46,7 @@ class QuizPrompter:
 
         if self._current_question_needs_random:
             user_input = self._apply_transformer(source=user_input)
+            user_input = self._reorder_choices(user_input)
 
         if self._quiz.test_answer(user_input):
             print(self._colorize("Correct!", self.GREEN))
@@ -92,6 +93,9 @@ class QuizPrompter:
                 for letter in source
             ]
         )
+
+    def _reorder_choices(self, answer: str) -> str:
+        return ", ".join(sorted(answer.replace(" ", "").split(",")))
 
     def _print_wrong_answer(self):
         correct_answer = (
