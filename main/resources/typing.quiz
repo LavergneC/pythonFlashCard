@@ -1,0 +1,41 @@
+# Typing
+
+Q: Rewrite this function declaration with correct typing. `elements` must contains
+only one type of objet.
+```
+def push_pop(elements: list, element):
+    elements.append(element)
+    return elements.pop(0)
+```
+
+A: def push_pop[T](elements: list[T], element: T) -> T:
+
+Q: Rewrite this function declaration with correct typing. 
+'first', 'second' and the return types always share the same type.
+This type must either be str or bytes.
+```
+def concat(first, second):
+   return first + second
+```
+
+A: def concat[T: (str, bytes)](first: T, second: T) -> T:
+
+Q: There is a family of typing that will accept the provided type plus sub-classes
+of the provided type, it's called
+a) Generic type
+b) Bounded types
+c) Constrained types
+A: b
+
+Q: Rewrite this function declaration with correct typing. 
+'arg' and return type must be the same.
+They must be str or a sub-class of str
+```
+def bounded(arg):
+```
+
+A: def bounded[T: str](arg: T) -> T:
+
+Q: How to define a type "Rect" that is a tuple of two floats
+(using Python 3.12 syntax)
+A: type Rect = tuple[float, float]
