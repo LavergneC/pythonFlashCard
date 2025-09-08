@@ -2,9 +2,9 @@ import pytest
 
 
 class Podium:
-    """Stores 3 same type object for a str podium.
+    """Stores 3 same type objects. Used for a podium display.
 
-    Objects are added using the add() method and will be rank using the
+    Objects are added using the add() method and will be ranked using the
     add() call order.
     """
 
@@ -12,7 +12,7 @@ class Podium:
         pass
 
     def __str__(self) -> str:
-        pass
+        return ""
 
     def add(self, contestant) -> None:
         pass
@@ -23,15 +23,9 @@ class Podium:
     # Feel free to add some private function     #
     ##############################################
 
-
-# WARNING
-# The test section is missing type hinting, add it yourself
-
-
-# The following section contains all the tests used to validate your
-# response.
+# The following section contains all the tests used to validate your response
 # Test your solution by running '$ pytest exercise.py'
-def test_podium():
+def test_podium_simple():
     people_podium = Podium()
     people_podium.add("Alice")
     people_podium.add("Bob")
@@ -50,9 +44,21 @@ def test_podium():
         ["🎖 First: 42", "🥈 Second: 123", "🥉 Third: 10"]
     )
 
+
+def test_podium_runtime_errors():
     best_booleans = Podium()
     best_booleans.add(True)
     best_booleans.add(False)
 
-    with pytest.raises(RuntimeError, match="Needs 3 contestants to print podium"):
+    with pytest.raises(
+        RuntimeError, match="Needs exactly 3 contestants to print podium"
+    ):
+        str(best_booleans)
+
+    best_booleans.add(False)
+    best_booleans.add(False)
+
+    with pytest.raises(
+        RuntimeError, match="Needs exactly 3 contestants to print podium"
+    ):
         str(best_booleans)
