@@ -11,7 +11,7 @@ def push_pop(elements: list, element):
 A: def push_pop[T](elements: list[T], element: T) -> T:
 
 Q: Rewrite this function declaration with correct typing. 
-'first', 'second' and the return types always share the same type.
+'first', 'second' and the return type always share the same type.
 This type must either be str or bytes.
 ```
 def concat(first, second):

@@ -26,7 +26,7 @@ class SaleManager:
 
     def add_sale_line(self, sale_line: SaleLine) -> None:
         """
-        Add a now sale line to the registery, either create a new line or append to the existing one
+        Add a new sale line to the registry, either create a new line or append to the existing one
         """
         self.sales_data[sale_line.city][sale_line.product] += sale_line.quantity
 
