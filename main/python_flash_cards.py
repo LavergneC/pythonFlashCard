@@ -9,6 +9,7 @@ from main.exercise_production.quiz_prompter import QuizPrompter
 from main.exercise_production.solution_to_exercise import SolutionToExercise
 from main.resources_management.resource_picker import ResourcePicker
 from main.resources_management.resource_storage import ResourceStorage
+from main.resources_management.scoreboard import Scoreboard
 
 
 class PythonFlashCards:
@@ -68,6 +69,8 @@ if __name__ == "__main__":
 
     pfc = PythonFlashCards(resource_csv_path=resource_csv_path)
 
+    print(Scoreboard.scoreboard(resources=pfc.resource_picker.resources))
+
     while True:
         exercise_type = pfc.get_exercise()
         if exercise_type == PythonFlashCards.ExerciseType.NONE:
@@ -107,5 +110,6 @@ if __name__ == "__main__":
             user_input = input("Type 'y' or 'n': ")
 
         if user_input in "Nn":
+            print(Scoreboard.scoreboard(resources=pfc.resource_picker.resources))
             print("Have a good day, see you later ! :)")
             exit()
