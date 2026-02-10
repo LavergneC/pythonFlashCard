@@ -2,15 +2,14 @@
 # [Python typing]
 import random
 from itertools import product
-from typing import TypeAlias
 
 from mypy import api as typing_check  # fcPython:keep line
 
 SUITS: list[str] = "♠ ♡ ♢ ♣".split()
 RANKS: list[str] = "2 3 4 5 6 7 8 9 10 J Q K A".split()
 
-Card: TypeAlias = tuple[str, str]
-Deck: TypeAlias = list[Card]
+type Card = tuple[str, str]
+type Deck = list[Card]
 
 
 def create_deck(shuffle: bool = False) -> Deck:
