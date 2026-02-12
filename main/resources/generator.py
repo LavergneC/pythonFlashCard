@@ -30,7 +30,7 @@ def storage_manager(storage_capacity: int) -> Generator[int, tuple[str, int], st
         StopIteration: When an invalid operation is provided or the storage
                        exceeds its capacity or goes below zero.
     """
-    current_quantity = 0
+    current_quantity: int = 0
 
     while True:
         operation, quantity = yield storage_capacity - current_quantity

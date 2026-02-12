@@ -1,0 +1,37 @@
+# generator-easy.py
+
+from typing import Generator
+
+
+def get_tower_damage() -> Generator[int, None, None]:
+    """
+    get_tower_damage return the damage dealt by a tower, the first damage is 10,
+    then for each call, damage are multiplied by 2.
+
+    yield damages dealt
+    """
+    damage = 10
+    while True:
+        yield damage
+        damage *= 2
+
+
+def test_get_tower_damage() -> None:
+    player_1_life = 100
+    player_2_life = 100
+
+    tower_damage_generator = get_tower_damage()
+
+    # player_1 enter tower range and get hits 3 times, tower inflict 10, 20, 40 damages
+    player_1_life -= next(tower_damage_generator)
+    assert player_1_life == 90
+
+    player_1_life -= next(tower_damage_generator)
+    assert player_1_life == 70
+
+    player_1_life -= next(tower_damage_generator)
+    assert player_1_life == 30
+
+    # player_1 enter tower range and get hits 1 times, 80 damages
+    player_2_life -= next(tower_damage_generator)
+    assert player_2_life == 20
