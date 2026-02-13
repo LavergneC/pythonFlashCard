@@ -13,6 +13,11 @@ class Scoreboard:
         return base
 
     @staticmethod
+    def score(resources: list[ResourceData]) -> str:
+        worse_resources = Scoreboard._worse_resources(resources)
+        return f"Your current score is {round(worse_resources[0][1], 2)}"
+
+    @staticmethod
     def _worse_resources(resources: list[ResourceData]) -> list[tuple[str, int]]:
         resource_picker = ResourcePicker(resources=resources)
         resource_picker.sort_resources()

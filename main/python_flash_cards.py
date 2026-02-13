@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     pfc = PythonFlashCards(resource_csv_path=resource_csv_path)
 
-    print(Scoreboard.scoreboard(resources=pfc.resource_picker.resources))
+    print(Scoreboard.score(resources=pfc.resource_picker.resources))
 
     while True:
         exercise_type = pfc.get_exercise()

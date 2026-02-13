@@ -34,3 +34,6 @@ class TestScoreboard:
             "\t-'Resource 3'\t2 points\n"
             "\t-'Resource 5'\t20 points"
         )
+
+    def test_display_short_version(self, resources: list[ResourceData]):
+        assert Scoreboard.score(resources) == "Your current score is 1.13"
