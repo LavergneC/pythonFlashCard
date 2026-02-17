@@ -1,4 +1,3 @@
-# generator-easy.py
 def get_tower_damage():
     """
     get_tower_damage return the damage dealt by a tower, the first damage is 10,
