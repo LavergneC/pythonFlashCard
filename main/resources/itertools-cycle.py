@@ -1,6 +1,8 @@
 # itertools-cycle.py
 from itertools import cycle, islice
 
+import pytest
+
 
 def build_strips_pattern(colors: list[str], length: int) -> list[str]:
     """
@@ -8,7 +10,7 @@ def build_strips_pattern(colors: list[str], length: int) -> list[str]:
     on the colors
     """
     if not colors:
-        raise ValueError("`colors` must be a non-empty sequence")
+        raise ValueError("`colors` must be a non-empty list")
     if length < 0:
         raise ValueError("`length` must be non-negative")
     return list(islice(cycle(colors), length))
@@ -48,3 +50,11 @@ def test_build_strips_pattern_more_complexe_pattern():
         "Red",
         "Blue",
     ]
+
+
+def test_build_strips_pattern_raises():
+    with pytest.raises(ValueError, match="`colors` must be a non-empty list"):
+        build_strips_pattern([], 4)
+
+    with pytest.raises(ValueError, match="`length` must be non-negative"):
+        build_strips_pattern(["Red", "White"], -1)
