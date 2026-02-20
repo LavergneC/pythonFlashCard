@@ -1,3 +1,4 @@
+
 # Modules et Packages
 
 Q: Is it possible to add directories in the import search path at runtime?
@@ -79,18 +80,10 @@ f) Directories added at runtime
 A: a, d, e, f
 
 Q: Suppose you have a module named 'my_module', my_module has a function 'my_function', what works?
-a) import my_module
-   my_function()
-
-b) import my_module
-   my_module.my_function()
-
-c) from my_module import my_function
-   my_function()
-
-d) from my_module import my_function
-   my_module.my_function()
-
+a) `import my_module` then `my_function()`
+b) `import my_module` then `my_module.my_function()`
+c) `from my_module import my_function` then `my_function()`
+d) `from my_module import my_function` then `my_module.my_function()`
 A: b, c
 
 Q: Suppose you have a package named 'pkg' with a module named 'my_module', what always works in order to import 'my_module'?
