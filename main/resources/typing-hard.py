@@ -4,13 +4,9 @@
 from collections.abc import Callable
 
 from mypy import api as typing_check  # fcPython:keep line
-from typing_extensions import ParamSpec, TypeVar
-
-P = ParamSpec("P")
-T = TypeVar("T")
 
 
-def add_plops(func: Callable[P, T]) -> Callable[P, T]:
+def add_plops[T, **P](func: Callable[P, T]) -> Callable[P, T]:
     """
     Decorator function that add '-plop' to all str type arguments of a given function
     """
